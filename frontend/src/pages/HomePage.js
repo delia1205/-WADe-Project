@@ -21,7 +21,7 @@ export default function HomePage() {
             or voice commands. Perfect for developers, analysts, and
             enthusiasts.
           </div>
-          <Button color="white" text="Start Querying Now" />
+          <Button classes="white" text="Start Querying Now" />
         </div>
       </div>
     </>

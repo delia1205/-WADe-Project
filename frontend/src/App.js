@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import TutorialPage from "./pages/TutorialPage";
 import UserContextProvider from "./hooks/context";
 import UserProfile from "./pages/UserProfile";
+import SignInPage from "./pages/SignInPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
               <Route path="query" element={<QueryPage />} />
               <Route path="tutorial" element={<TutorialPage />} />
               <Route path="profile" element={<UserProfile />} />
+              <Route path="sign-in" element={<SignInPage />} />
             </Route>
           </Routes>
         </BrowserRouter>
