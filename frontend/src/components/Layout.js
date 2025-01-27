@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Outlet, Link } from "react-router-dom";
 import { UserContext } from "../hooks/context";
 import Title from "./Title";
 
 export default function Layout() {
   let { userData } = useContext(UserContext);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
     <>
@@ -13,6 +14,12 @@ export default function Layout() {
           <div className="title">
             <Title />
           </div>
+          <button
+            className="dropdown"
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          >
+            Dropdown
+          </button>
           <ul className="list">
             <li>
               <Link to="/">Home</Link>
@@ -24,7 +31,6 @@ export default function Layout() {
               <Link to="/tutorial">Tutorial</Link>
             </li>
           </ul>
-          <button className="dropdown">Dropdown</button>
         </nav>
       ) : (
         <nav>
