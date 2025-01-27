@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css?family=Fredoka+One");
+
+.text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.logo {
+  position: absolute;
+  transform: translateY(-50%);
+  width: 4rem;
+  height: 4rem;
+  color: white;
+  font-family: "Fredoka One", sans-serif;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: "";
+    border-radius: calc(2rem * 0.3);
+    mix-blend-mode: screen;
+    background-color: rebeccapurple;
+    animation: fast 10s linear infinite;
+  }
+
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: "";
+    border-radius: calc(2rem * 0.3);
+    mix-blend-mode: screen;
+    background-color: lightskyblue;
+    animation: slow 20s linear infinite;
+  }
+}
+
+@keyframes fast {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slow {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}

@@ -1,43 +1,29 @@
-import React, { useState } from 'react';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import QueryPage from "./pages/QueryPage";
+import Layout from "./components/Layout";
+import HomePage from "./pages/HomePage";
+import TutorialPage from "./pages/TutorialPage";
+import UserContextProvider from "./hooks/context";
+import UserProfile from "./pages/UserProfile";
 
 function App() {
-    const [input, setInput] = useState("");
-    const [result, setResult] = useState(null);
-
-    const handleInputChange = (e) => setInput(e.target.value);
-
-    const handleVoiceInput = () => {
-        const recognition = new window.webkitSpeechRecognition();
-        recognition.onresult = (event) => {
-            setInput(event.results[0][0].transcript);
-        };
-        recognition.start();
-    };
-
-    const handleSubmit = async () => {
-        const response = await fetch('http://localhost:3000/query', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ input }),
-        });
-        const data = await response.json();
-        setResult(data);
-    };
-
-    return (
-        <div>
-            <h1>GAIT - GraphQL API Interactive Tool</h1>
-            <input
-                type="text"
-                value={input}
-                onChange={handleInputChange}
-                placeholder="Type your query heree..."
-            />
-            <button onClick={handleVoiceInput}>🎤 Voice Input</button>
-            <button onClick={handleSubmit}>Submit</button>
-            {result && <pre>{JSON.stringify(result, null, 2)}</pre>}
-        </div>
-    );
+  return (
+    <div className="App">
+      <UserContextProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<HomePage />} />
+              <Route path="query" element={<QueryPage />} />
+              <Route path="tutorial" element={<TutorialPage />} />
+              <Route path="profile" element={<UserProfile />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </UserContextProvider>
+    </div>
+  );
 }
 
 export default App;
