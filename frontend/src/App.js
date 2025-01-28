@@ -9,6 +9,7 @@ import UserProfile from "./pages/UserProfile";
 import SignInPage from "./pages/SignInPage";
 import NotFound from "./pages/NotFound";
 import PrivateRoutes from "./components/PrivateRoutes";
+import ResultsPage from "./pages/ResultsPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route element={<PrivateRoutes />}>
                 <Route path="query" element={<QueryPage />} />
                 <Route path="profile" element={<UserProfile />} />
+                <Route path="result" element={<ResultsPage />} />
               </Route>
             </Route>
           </Routes>
