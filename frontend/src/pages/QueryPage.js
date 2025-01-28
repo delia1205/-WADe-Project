@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../styles/query.css";
 
 function QueryPage() {
   const [input, setInput] = useState("");
@@ -25,18 +26,32 @@ function QueryPage() {
   };
 
   return (
-    <div>
-      <h1>GAIT - GraphQL API Interactive Tool</h1>
-      <input
-        type="text"
-        value={input}
-        onChange={handleInputChange}
-        placeholder="Type your query here..."
-      />
-      <button onClick={handleVoiceInput}>🎤 Voice Input</button>
-      <button onClick={handleSubmit}>Submit</button>
-      {result && <pre>{JSON.stringify(result, null, 2)}</pre>}
-    </div>
+    <>
+      <div>
+        <div className="wave"></div>
+        <div className="wave"></div>
+        <div className="wave"></div>
+      </div>
+      <div className="query-container">
+        <h1 className="query-title">GAIT - GraphQL API Interactive Tool</h1>
+        <textarea
+          value={input}
+          onChange={handleInputChange}
+          placeholder="Type your query here..."
+          rows="5"
+        />
+        <button className="query-button" onClick={handleVoiceInput}>
+          🎤 Voice Input
+        </button>
+        <button className="query-button" onClick={handleSubmit}>
+          Submit
+        </button>
+        {
+          //  TODO: redirect to a new page for results and remove this
+          result && <pre>{JSON.stringify(result, null, 2)}</pre>
+        }
+      </div>
+    </>
   );
 }
 

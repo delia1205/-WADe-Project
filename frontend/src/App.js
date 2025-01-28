@@ -7,23 +7,28 @@ import TutorialPage from "./pages/TutorialPage";
 import UserContextProvider from "./hooks/context";
 import UserProfile from "./pages/UserProfile";
 import SignInPage from "./pages/SignInPage";
+import NotFound from "./pages/NotFound";
+import PrivateRoutes from "./components/PrivateRoutes";
 
 function App() {
   return (
     <div className="App">
-      <UserContextProvider>
-        <BrowserRouter>
+      <BrowserRouter>
+        <UserContextProvider>
           <Routes>
+            <Route path="*" element={<NotFound />} />
             <Route path="/" element={<Layout />}>
               <Route index element={<HomePage />} />
-              <Route path="query" element={<QueryPage />} />
               <Route path="tutorial" element={<TutorialPage />} />
-              <Route path="profile" element={<UserProfile />} />
               <Route path="sign-in" element={<SignInPage />} />
+              <Route element={<PrivateRoutes />}>
+                <Route path="query" element={<QueryPage />} />
+                <Route path="profile" element={<UserProfile />} />
+              </Route>
             </Route>
           </Routes>
-        </BrowserRouter>
-      </UserContextProvider>
+        </UserContextProvider>
+      </BrowserRouter>
     </div>
   );
 }

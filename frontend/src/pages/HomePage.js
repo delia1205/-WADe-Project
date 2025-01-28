@@ -2,8 +2,11 @@ import React from "react";
 import "../styles/home.css";
 import "../styles/navbar.css";
 import Button from "../components/Button";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
+  const navigate = useNavigate();
+
   return (
     <>
       <div>
@@ -21,7 +24,11 @@ export default function HomePage() {
             or voice commands. Perfect for developers, analysts, and
             enthusiasts.
           </div>
-          <Button classes="white" text="Start Querying Now" />
+          <Button
+            classes="white"
+            text="Start Querying Now"
+            onClick={() => navigate("/query")}
+          />
         </div>
       </div>
     </>

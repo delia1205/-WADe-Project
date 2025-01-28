@@ -7,7 +7,7 @@
   margin-top: 8%;
   padding: 0 16px;
 
-  .title {
+  .tut-title {
     font-size: 2rem;
     font-weight: bold;
     text-align: center;
@@ -42,7 +42,7 @@
     padding: 20px 12px;
   }
 
-  .title {
+  .tut-title {
     font-size: 1.8rem;
   }
 
@@ -61,7 +61,7 @@
     margin-top: 15%;
   }
 
-  .title {
+  .tut-title {
     font-size: 1.6rem;
   }
 

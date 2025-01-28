@@ -1,0 +1,100 @@
+.query-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 7%;
+  padding: 50px 20px;
+  max-width: 800px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.query-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #2e0b7e;
+}
+
+textarea {
+  width: 100%;
+  max-width: 600px;
+  padding: 15px;
+  font-size: 1.2rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s ease-in-out;
+  resize: none;
+  height: auto;
+  line-height: 1.5;
+}
+
+textarea:focus {
+  border-color: #2a1b7e;
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
+
+.query-button {
+  padding: 12px 20px;
+  margin: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background-color: #2a1b7e;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.query-button:hover {
+  background-color: #3089bd;
+  transform: scale(1.05);
+}
+
+.query-button:active {
+  background-color: #004080;
+}
+
+pre {
+  background-color: #eee;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  max-width: 100%;
+  overflow-x: auto;
+  box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.05);
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1rem;
+  color: #333;
+}
+
+@media (max-width: 600px) {
+  .query-container {
+    padding: 30px 30px;
+    margin: 0 10px;
+    margin-top: 25%;
+  }
+
+  .query-title {
+    font-size: 1.8rem;
+  }
+
+  textarea {
+    font-size: 1rem;
+    padding: 12px;
+  }
+
+  .query-button {
+    font-size: 0.9rem;
+    padding: 10px 15px;
+  }
+}

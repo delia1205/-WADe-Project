@@ -33,8 +33,17 @@ export default function Layout() {
           </ul>
         </nav>
       ) : (
-        <nav>
-          <ul>
+        <nav className="see-through">
+          <div className="title">
+            <Title />
+          </div>
+          <button
+            className="dropdown"
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          >
+            Dropdown
+          </button>
+          <ul className="list">
             <li>
               <Link to="/">Home</Link>
             </li>

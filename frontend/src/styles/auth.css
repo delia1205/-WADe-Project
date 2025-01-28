@@ -88,6 +88,12 @@
   background-color: #3089bd;
 }
 
+.error {
+  color: red;
+  font-size: small;
+  padding: 0px 0px 15px 10px;
+}
+
 @media (max-width: 480px) {
   .auth-container {
     width: 80%;
