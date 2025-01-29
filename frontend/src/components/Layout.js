@@ -9,7 +9,7 @@ export default function Layout() {
 
   return (
     <>
-      {!userData.isLogged ? (
+      {userData.email === "" ? (
         <nav className="see-through">
           <div className="title">
             <Title />

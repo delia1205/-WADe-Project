@@ -3,6 +3,6 @@ import { useAuth } from "../hooks/context.js";
 
 const PrivateRoutes = () => {
   const { userData } = useAuth();
-  return userData.isLogged ? <Outlet /> : <Navigate to="/sign-in" />;
+  return userData.email !== "" ? <Outlet /> : <Navigate to="/sign-in" />;
 };
 export default PrivateRoutes;

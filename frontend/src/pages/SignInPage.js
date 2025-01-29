@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/context.js";
 import "../styles/auth.css";
 
 export default function SignInPage() {
   const [isLogin, setIsLogin] = useState(true);
-  const { login } = useAuth();
+  const { userData, login, register, error } = useAuth();
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -14,6 +15,14 @@ export default function SignInPage() {
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log("userData updated:", userData);
+    if (userData.email !== "") {
+      console.log("Navigating to /query after successful login...");
+      navigate("/query");
+    }
+  }, [userData, navigate]);
 
   const validateEmail = () => {
     if (!email) {
@@ -59,22 +68,27 @@ export default function SignInPage() {
     }
   };
 
-  const handleSubmitLogin = (e) => {
+  const handleSubmitLogin = async (e) => {
     e.preventDefault();
-    if (validateEmail() && validatePassword()) {
-      console.log("Login successful");
-      login({ email: e.target.email.value, isLogged: true });
-      navigate("/query");
+    try {
+      await login(username, password);
+    } catch (err) {
+      console.error("Login failed:", err);
     }
   };
 
-  const handleSubmitRegister = (e) => {
+  const handleSubmitRegister = async (e) => {
     e.preventDefault();
-    if (validateEmail() && validatePassword() && validateConfirmPassword()) {
-      console.log("Register successful");
-      // TODO: change login to register after implementation
-      login({ email: e.target.email.value, isLogged: true });
-      navigate("/query");
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    try {
+      await register(username, email, password);
+      setIsLogin(true);
+    } catch (err) {
+      console.error("Registration failed:", err);
     }
   };
 
@@ -106,20 +120,18 @@ export default function SignInPage() {
             Register
           </button>
         </div>
-
         {isLogin ? (
           <div className="form-container">
             <h2>Login</h2>
-            <form onSubmit={(e) => handleSubmitLogin(e)}>
+            <form onSubmit={handleSubmitLogin}>
               <div className="input-group">
-                <label htmlFor="email">Email</label>
+                <label htmlFor="username">Username</label>
                 <input
-                  type="email"
-                  id="email"
-                  placeholder="your_email@company.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  onBlur={validateEmail}
+                  type="text"
+                  id="username"
+                  placeholder="Your username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   required
                 />
               </div>
@@ -131,11 +143,10 @@ export default function SignInPage() {
                   placeholder="***************"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  onBlur={validatePassword}
                   required
                 />
               </div>
-              <div className="error">{emailError + passwordError}</div>
+              <div className="error">{error + emailError + passwordError}</div>
               <button type="submit" className="submit-btn">
                 Login
               </button>
@@ -144,7 +155,18 @@ export default function SignInPage() {
         ) : (
           <div className="form-container">
             <h2>Register</h2>
-            <form onSubmit={(e) => handleSubmitRegister(e)}>
+            <form onSubmit={handleSubmitRegister}>
+              <div className="input-group">
+                <label htmlFor="username">Username</label>
+                <input
+                  type="text"
+                  id="username"
+                  placeholder="Your username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+              </div>
               <div className="input-group">
                 <label htmlFor="email">Email</label>
                 <input

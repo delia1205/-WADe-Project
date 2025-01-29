@@ -8,7 +8,7 @@ export default function NotFound() {
         <div className="wave"></div>
         <div className="wave"></div>
       </div>
-      <div className="centered">
+      <div className="home-centered">
         <div className="content">
           <div className="headline">Oops! Page Not Found.</div>
           <div className="subtitle">
