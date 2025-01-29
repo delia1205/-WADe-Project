@@ -74,7 +74,7 @@ body {
   }
 }
 
-.centered {
+.home-centered {
   display: flex;
   align-items: center;
   position: absolute;

@@ -14,7 +14,7 @@ export default function HomePage() {
         <div className="wave"></div>
         <div className="wave"></div>
       </div>
-      <div className="centered">
+      <div className="home-centered">
         <div className="content">
           <div className="headline">
             Query GraphQL APIs with Natural Language – No Coding Required!
