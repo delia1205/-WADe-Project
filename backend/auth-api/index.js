@@ -19,7 +19,13 @@ mongoose
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Your frontend's origin
+    credentials: true, // Allow cookies to be sent
+  })
+);
+
 app.use(express.json());
 app.use(cookieParser());
 

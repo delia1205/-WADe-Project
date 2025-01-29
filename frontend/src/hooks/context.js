@@ -16,11 +16,14 @@ const UserContextProvider = ({ children }) => {
     try {
       const response = await axios.post(
         "http://localhost:3002/api/auth/signin",
-        { username, password }
+        { username, password },
+        { withCredentials: true }
       );
       const user = response.data;
       localStorage.setItem("userData", JSON.stringify(user));
       setUserData(user);
+      console.log(user);
+
       setError("");
     } catch (error) {
       console.error(

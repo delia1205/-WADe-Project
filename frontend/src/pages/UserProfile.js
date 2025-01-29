@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/context";
 import "../styles/profile.css";
 
 export default function UserProfile() {
-  // MOCKUP DATA - for user
+  // MOCKUP DATA - for user's history
   const [queryHistory, setQueryHistory] = useState([
     {
       id: 1,
@@ -40,8 +40,51 @@ export default function UserProfile() {
   const clearSavedResults = () => setSavedResults([]);
   // END OF MOCKUP
 
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
+
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { userData, logout } = useAuth();
+
+  const handleProfilePicChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedPhoto(file);
+      const previewURL = URL.createObjectURL(file);
+      setSelectedPhoto(previewURL);
+    }
+  };
+
+  const handleProfilePicUpdate = async () => {
+    if (selectedPhoto && userData?._id) {
+      const formData = { token: userData.token, photoURL: selectedPhoto };
+      try {
+        const response = await fetch(
+          `http://localhost:3002/api/user/update/${userData._id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+            credentials: "include",
+          }
+        );
+
+        const data = await response.json();
+
+        if (response.ok) {
+          console.log("Profile picture updated:", data.photoURL);
+          userData.photoURL = data.photoURL;
+        } else {
+          console.log("Error updating profile picture:", data);
+        }
+      } catch (error) {
+        console.error("Error uploading profile picture:", error);
+      }
+    } else {
+      console.log("No photo selected or user data unavailable.");
+    }
+  };
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("Select Language");
@@ -61,6 +104,10 @@ export default function UserProfile() {
     navigate("/");
   };
 
+  if (!userData) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <div>
@@ -74,13 +121,13 @@ export default function UserProfile() {
           <section className="user-info">
             <div className="user-card">
               <img
-                src="https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=600"
+                src={userData.photoURL}
                 alt="Profile"
                 className="profile-pic"
               />
               <div>
-                <h2 className="user-name">John Doe</h2>
-                <p className="user-email">johndoe@example.com</p>
+                <h2 className="user-name">{userData.username}</h2>
+                <p className="user-email">{userData.email}</p>
               </div>
             </div>
           </section>
@@ -214,6 +261,29 @@ export default function UserProfile() {
                   className="pass-input"
                 />
               </div>
+            </div>
+          </section>
+
+          <section className="update-profile-pic">
+            <h3 className="update-pic-title">Update Profile Picture</h3>
+            <div className="update-pic-card">
+              <img
+                src={selectedPhoto || userData.photoURL}
+                alt="Profile"
+                className="profile-pic-preview"
+              />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleProfilePicChange}
+                className="profile-pic-input"
+              />
+              <button
+                className="update-pic-button"
+                onClick={handleProfilePicUpdate}
+              >
+                Update Photo
+              </button>
             </div>
           </section>
 

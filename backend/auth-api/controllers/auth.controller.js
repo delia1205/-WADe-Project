@@ -2,6 +2,7 @@ import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
+import Cookies from "js-cookie";
 
 export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -56,7 +57,16 @@ export const signin = async (req, res, next) => {
     );
 
     const { password: pass, ...rest } = validUser._doc;
-    res.status(200).cookie("token", token, { httpOnly: true }).json(rest);
+    res
+      .status(200)
+      // .cookie("token", token, {
+      //   httpOnly: true,
+      //   secure: process.env.NODE_ENV === "production",
+      //   sameSite: "None",
+      //   path: "/",
+      //   maxAge: 60 * 60 * 24 * 7,
+      // })
+      .json({ token, ...rest });
   } catch (error) {
     next(error);
   }
