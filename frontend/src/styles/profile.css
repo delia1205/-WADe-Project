@@ -224,6 +224,8 @@ ul {
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.2s ease, transform 0.2s ease;
+  max-width: 60%;
+  align-self: center;
 }
 
 .export-button:hover {

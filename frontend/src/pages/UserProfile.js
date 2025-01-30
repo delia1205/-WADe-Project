@@ -2,6 +2,13 @@ import React, { useState, useEffect } from "react";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/context";
+import app from "../firebase";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
 import "../styles/profile.css";
 
 export default function UserProfile() {
@@ -40,7 +47,16 @@ export default function UserProfile() {
   const clearSavedResults = () => setSavedResults([]);
   // END OF MOCKUP
 
+  const [languagePreference, setLanguagePreference] = useState(
+    localStorage.getItem("langPref")
+  );
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState("Select Language");
+
   const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [imageURL, setImageURL] = useState(null);
+  const [uploadError, setUploadError] = useState("");
 
   const navigate = useNavigate();
   const { userData, logout } = useAuth();
@@ -49,14 +65,46 @@ export default function UserProfile() {
     const file = e.target.files[0];
     if (file) {
       setSelectedPhoto(file);
-      const previewURL = URL.createObjectURL(file);
-      setSelectedPhoto(previewURL);
     }
   };
 
+  const uploadImage = async () => {
+    setUploadError("");
+    const storage = getStorage(app);
+    const fileName = new Date().getTime() + selectedPhoto.name;
+    const storageRef = ref(storage, fileName);
+    const uploadTask = uploadBytesResumable(storageRef, selectedPhoto);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      },
+      (error) => {
+        setUploadError(
+          "Could not upload image. File must be an image smaller than 2MB."
+        );
+        setSelectedPhoto(null);
+        setImageURL(null);
+        console.log(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setImageURL(downloadURL);
+        });
+      }
+    );
+  };
+
+  useEffect(() => {
+    if (selectedPhoto) {
+      uploadImage();
+    }
+  }, [selectedPhoto]);
+
   const handleProfilePicUpdate = async () => {
-    if (selectedPhoto && userData?._id) {
-      const formData = { token: userData.token, photoURL: selectedPhoto };
+    if (imageURL && userData?._id) {
+      const formData = { token: userData.token, photoURL: imageURL };
       try {
         const response = await fetch(
           `http://localhost:3002/api/user/update/${userData._id}`,
@@ -75,6 +123,8 @@ export default function UserProfile() {
         if (response.ok) {
           console.log("Profile picture updated:", data.photoURL);
           userData.photoURL = data.photoURL;
+          localStorage.setItem("userData", JSON.stringify(userData));
+          setUploadError("Profile picture updated.");
         } else {
           console.log("Error updating profile picture:", data);
         }
@@ -86,14 +136,15 @@ export default function UserProfile() {
     }
   };
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState("Select Language");
-
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
   const selectLanguage = (language) => {
+    if (language !== "Select Language") {
+      setLanguagePreference(language);
+      localStorage.setItem("langPref", language);
+    }
     setSelectedLanguage(language);
     setIsOpen(false);
   };
@@ -102,6 +153,60 @@ export default function UserProfile() {
     console.log("User signed out");
     logout();
     navigate("/");
+  };
+
+  const [passwords, setPasswords] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmNewPassword: "",
+  });
+  const [message, setMessage] = useState("");
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setPasswords({ ...passwords, [name]: value });
+  };
+
+  const handlePasswordUpdate = async (e) => {
+    e.preventDefault();
+
+    if (passwords.newPassword !== passwords.confirmNewPassword) {
+      setMessage("New passwords do not match.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost:3002/api/user/update/${userData._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            password: passwords.newPassword,
+            token: userData.token,
+          }),
+          credentials: "include",
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessage("Password updated successfully.");
+        setPasswords({
+          currentPassword: "",
+          newPassword: "",
+          confirmNewPassword: "",
+        });
+      } else {
+        setMessage(data.error || "Error updating password.");
+      }
+    } catch (error) {
+      console.error("Error updating password:", error);
+      setMessage("Server error. Please try again.");
+    }
   };
 
   if (!userData) {
@@ -219,14 +324,14 @@ export default function UserProfile() {
             <h3 className="settings-title">Account Settings</h3>
             <div className="settings-card">
               <div>
-                <label>Name</label>
-                <input type="text" placeholder="John Doe" />
-              </div>
-              <div>
-                <label>Email</label>
-                <input type="email" placeholder="johndoe@example.com" />
-              </div>
-              <div>
+                {languagePreference ? (
+                  <label>
+                    Current language preference is set to: {languagePreference}
+                  </label>
+                ) : (
+                  <label>No language preference is set.</label>
+                )}
+                <br />
                 <label>Language Preference</label>
                 <div className="dropdown-lang">
                   <button className="dropdown-trigger" onClick={toggleDropdown}>
@@ -243,24 +348,47 @@ export default function UserProfile() {
                   )}
                 </div>
               </div>
-              <div className="change-pass">
-                <label>Change Password</label>
+              <form onSubmit={handlePasswordUpdate} className="change-pass">
+                <h3>Change Password</h3>
+                <label>Current Password</label>
                 <input
                   type="password"
+                  name="currentPassword"
                   placeholder="Current Password"
                   className="pass-input"
+                  value={passwords.currentPassword}
+                  onChange={handleInputChange}
+                  required
                 />
+
+                <label>New Password</label>
                 <input
                   type="password"
+                  name="newPassword"
                   placeholder="New Password"
                   className="pass-input"
+                  value={passwords.newPassword}
+                  onChange={handleInputChange}
+                  required
                 />
+
+                <label>Confirm New Password</label>
                 <input
                   type="password"
+                  name="confirmNewPassword"
                   placeholder="Confirm New Password"
                   className="pass-input"
+                  value={passwords.confirmNewPassword}
+                  onChange={handleInputChange}
+                  required
                 />
-              </div>
+
+                {message && <p className="message">{message}</p>}
+
+                <button type="submit" className="export-button">
+                  Update Password
+                </button>
+              </form>
             </div>
           </section>
 
@@ -268,7 +396,7 @@ export default function UserProfile() {
             <h3 className="update-pic-title">Update Profile Picture</h3>
             <div className="update-pic-card">
               <img
-                src={selectedPhoto || userData.photoURL}
+                src={imageURL || userData.photoURL}
                 alt="Profile"
                 className="profile-pic-preview"
               />
@@ -285,6 +413,8 @@ export default function UserProfile() {
                 Update Photo
               </button>
             </div>
+
+            {uploadError && <div className="error">{uploadError}</div>}
           </section>
 
           <section className="export">
