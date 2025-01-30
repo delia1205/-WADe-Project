@@ -177,13 +177,14 @@ export default function UserProfile() {
 
     try {
       const response = await fetch(
-        `http://localhost:3002/api/user/update/${userData._id}`,
+        `http://localhost:3002/api/user/update-password/${userData._id}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            currentPassword: passwords.currentPassword,
             password: passwords.newPassword,
             token: userData.token,
           }),
