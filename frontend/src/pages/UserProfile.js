@@ -9,6 +9,7 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
+import { FaBookmark } from "react-icons/fa";
 import "../styles/profile.css";
 
 export default function UserProfile() {
@@ -46,6 +47,17 @@ export default function UserProfile() {
   const clearQueryHistory = () => setQueryHistory([]);
   const clearSavedResults = () => setSavedResults([]);
   // END OF MOCKUP
+
+  const saveQueryToBookmarks = (query) => {
+    const newSavedResult = {
+      id: savedResults.length + 1,
+      title: query.input,
+      preview: query.graphqlQuery,
+      link: `/results/${query.id}`,
+    };
+
+    setSavedResults([...savedResults, newSavedResult]);
+  };
 
   const [languagePreference, setLanguagePreference] = useState(
     localStorage.getItem("langPref")
@@ -261,6 +273,12 @@ export default function UserProfile() {
                           }
                         >
                           Delete
+                        </button>
+                        <button
+                          className="item-button save-button"
+                          onClick={() => saveQueryToBookmarks(query)}
+                        >
+                          <FaBookmark style={{ marginRight: "8px" }} /> Save
                         </button>
                       </div>
                     </li>
