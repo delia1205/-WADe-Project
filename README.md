@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="graphql.png" alt="graphql-logo" width="200" height="auto" />
+  <img src="assets/graphql.png" alt="graphql-logo" width="200" height="auto" />
   <h1>GAIT - GraphQL API Interactive Tool</h1>
   
   <p>
@@ -102,6 +102,7 @@
     <li><a href="https://expressjs.com/">Express.js</a></li>
     <li><a href="https://nodejs.org/en">Node.js</a></li>
     <li><a href="https://graphql.org/">GraphQL</a></li>
+    <li><a href="https://cloud.google.com/speech-to-text?hl=en">Google Speech-to-Text</a></li>
   </ul>
 </details>
 
@@ -123,19 +124,24 @@
 <!-- Features -->
 ### :dart: Features
 
-- Feature 1
-- Feature 2
-- Feature 3
+- **User Authentication**: Secure login functionality using credentials verified by an authentication API and a user profile database.
+- **Voice Query Input**: Allows users to input queries via voice, leveraging Google’s Speech-to-Text API for conversion to text.
+- **Language Translation**: Supports automatic translation of user queries and query results through Google Translate API, making the system accessible to multilingual users.
+- **Dynamic Query Generation**: Translates user queries into dynamic GraphQL queries via a Query Generator API, which is then sent to public GraphQL APIs for data retrieval.
+- **Query History and Bookmarking**: Users can save and bookmark queries or results, which are stored in the Query History Database. They can also download results for offline access.
+- **Real-time Data Retrieval**: Integrates with various public GraphQL APIs to fetch and display relevant data based on user queries.
+- **Intuitive User Interface**: Front-end interface built with React, offering a seamless and responsive experience for interacting with the system.
 
 <!-- Color Reference -->
 ### :art: Color Reference
 
 | Color             | Hex                                                                |
 | ----------------- | ------------------------------------------------------------------ |
-| Primary Color | ![#222831](https://via.placeholder.com/10/222831?text=+) #222831 |
-| Secondary Color | ![#393E46](https://via.placeholder.com/10/393E46?text=+) #393E46 |
-| Accent Color | ![#00ADB5](https://via.placeholder.com/10/00ADB5?text=+) #00ADB5 |
-| Text Color | ![#EEEEEE](https://via.placeholder.com/10/EEEEEE?text=+) #EEEEEE |
+| Background Colors | <img src="assets/bg1.png" alt="bg-color" width="15" height="15" /> #23004B <img src="assets/bg2.png" alt="bg-color" width="15" height="15" /> #3C50BE <img src="assets/bg3.png" alt="bg-color" width="15" height="15" /> #3084D2 <img src="assets/bg4.png" alt="bg-color" width="15" height="15" /> #5500AA |
+| Primary Color | <img src="assets/primary.png" alt="primary-color" width="15" height="15" /> #164694 |
+| Accent Color | <img src="assets/accent.png" alt="accent-color" width="15" height="15" /> #9333ea |
+| Text Color | <img src="assets/text.png" alt="text-color" width="15" height="15" /> #FFFFFF |
+| Button Color | <img src="assets/button.png" alt="button-color" width="15" height="15" /> #2a1b7e |
 
 
 <!-- Env Variables -->
