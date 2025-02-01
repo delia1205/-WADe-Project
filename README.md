@@ -73,10 +73,10 @@
 ### :camera: Screenshots
 
 <div align="center"> 
-  <img src="screenshoys/home-ss.png" alt="screenshot" />
-  <img src="screenshoys/signing-ss.png" alt="screenshot" />
-  <img src="screenshoys/query-ss.png" alt="screenshot" />
-  <img src="screenshoys/profile-ss-1.png" alt="screenshot" />
+  <img src="screenshots/home-ss.png" alt="screenshot" />
+  <img src="screenshots/signing-ss.png" alt="screenshot" />
+  <img src="screenshots/query-ss.png" alt="screenshot" />
+  <img src="screenshots/profile-ss-1.png" alt="screenshot" />
 </div>
 
 
