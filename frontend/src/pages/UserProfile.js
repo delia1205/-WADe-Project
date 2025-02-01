@@ -9,7 +9,7 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import { FaBookmark } from "react-icons/fa";
+import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import "../styles/profile.css";
 
 export default function UserProfile() {
@@ -48,17 +48,31 @@ export default function UserProfile() {
   const clearSavedResults = () => setSavedResults([]);
   // END OF MOCKUP
 
-  const saveQueryToBookmarks = (query) => {
-    const newSavedResult = {
-      id: savedResults.length + 1,
-      title: query.input,
-      preview: query.graphqlQuery,
-      link: `/results/${query.id}`,
-    };
+  const [savedQueryIds, setSavedQueryIds] = useState(new Set());
 
-    setSavedResults([...savedResults, newSavedResult]);
+  const toggleSaveQuery = (query) => {
+    setSavedQueryIds((prev) => {
+      const newSaved = new Set(prev);
+      if (newSaved.has(query.id)) {
+        newSaved.delete(query.id);
+        setSavedResults((prevResults) =>
+          prevResults.filter((r) => r.id !== query.id)
+        );
+      } else {
+        newSaved.add(query.id);
+        setSavedResults((prevResults) => [
+          ...prevResults,
+          {
+            id: query.id,
+            title: query.input,
+            preview: query.graphqlQuery,
+            link: `/results/${query.id}`,
+          },
+        ]);
+      }
+      return newSaved;
+    });
   };
-
   const [languagePreference, setLanguagePreference] = useState(
     localStorage.getItem("langPref")
   );
@@ -276,9 +290,15 @@ export default function UserProfile() {
                         </button>
                         <button
                           className="item-button save-button"
-                          onClick={() => saveQueryToBookmarks(query)}
+                          onClick={() => toggleSaveQuery(query)}
+                          disabled={savedQueryIds.has(query.id)}
                         >
-                          <FaBookmark style={{ marginRight: "8px" }} /> Save
+                          {savedQueryIds.has(query.id) ? (
+                            <FaBookmark style={{ marginRight: "8px" }} />
+                          ) : (
+                            <FaRegBookmark style={{ marginRight: "8px" }} />
+                          )}
+                          {savedQueryIds.has(query.id) ? "Saved" : "Save"}
                         </button>
                       </div>
                     </li>
