@@ -68,6 +68,11 @@
 <!-- About the Project -->
 ## :star2: About the Project
 
+The GAIT (GraphQL API Interactive Tool) project aims to develop a web-based tool that enables users to interact with GraphQL APIs using natural language constructs (text or voice). The tool simplifies the process of querying GraphQL APIs by abstracting the complexity of writing GraphQL queries manually. Instead, users can express their requests in natural language, and the system will automatically generate and execute the corresponding GraphQL queries.
+
+The architecture of GAIT follows a service-oriented approach, designed to process natural language queries and interact with multiple GraphQL APIs efficiently. The system consists of several core components that work together to transform user inputs into structured GraphQL queries and return meaningful results. The GAIT system is composed of three major layers: User Interface (UI), Processing Layer, and API Integration Layer.
+
+The primary goal of this project was to create an intuitive and accessible platform that allows users to query GraphQL APIs without requiring deep technical knowledge of GraphQL syntax. By leveraging natural language processing (NLP) and voice recognition technologies, GAIT aims to simplify the process of data retrieval and interaction with APIs.
 
 <!-- Screenshots -->
 ### :camera: Screenshots
@@ -145,7 +150,7 @@
 
 
 <!-- Env Variables -->
-### :key: Environment Variables
+### :key: Environment Variables -----> **TO DO**
 
 To run this project, you will need to add the following environment variables to your .env file
 
@@ -154,10 +159,10 @@ To run this project, you will need to add the following environment variables to
 `ANOTHER_API_KEY`
 
 <!-- Getting Started -->
-## 	:toolbox: Getting Started
+## 	:toolbox: Getting Started -----> **TO DO**
 
 <!-- Prerequisites -->
-### :bangbang: Prerequisites
+### :bangbang: Prerequisites -----> **TO DO**
 
 This project uses Yarn as package manager
 
@@ -166,7 +171,7 @@ This project uses Yarn as package manager
 ```
 
 <!-- Installation -->
-### :gear: Installation
+### :gear: Installation -----> **TO DO**
 
 Install my-project with npm
 
@@ -176,7 +181,7 @@ Install my-project with npm
 ```
    
 <!-- Running Tests -->
-### :test_tube: Running Tests
+### :test_tube: Running Tests -----> **TO DO**
 
 To run tests, run the following command
 
@@ -185,7 +190,7 @@ To run tests, run the following command
 ```
 
 <!-- Run Locally -->
-### :running: Run Locally
+### :running: Run Locally -----> **TO DO**
 
 Clone the project
 
@@ -213,7 +218,7 @@ Start the server
 
 
 <!-- Deployment -->
-### :triangular_flag_on_post: Deployment
+### :triangular_flag_on_post: Deployment -----> **TO DO**
 
 To deploy this project run
 
@@ -222,8 +227,8 @@ To deploy this project run
 ```
 
 
-<!-- Usage -->
-## :eyes: Usage
+<!-- Usage --> 
+## :eyes: Usage -----> **TO DO**
 
 Use this space to tell a little more about your project and how it can be used. Show additional screenshots, code samples, demos or link to other resources.
 
@@ -239,30 +244,47 @@ function App() {
 <!-- Roadmap -->
 ## :compass: Roadmap
 
-* [x] Todo 1
-* [ ] Todo 2
+* [x] Define Core Features
+* [x] Tech Stack Decisions
+* [x] Design System Architecture
+* [x] Create Database Schema
+* [x] Define API Specifications
+* [x] UI/UX Design
+* [x] Develop Backend Services
+* [x] Develop Frontend Application
+* [x] Unit Testing
+* [x] Integration Testing
+* [x] Set Up Deployment Pipeline
+* [x] Documentation
+* [ ] Deploy Application
+* [ ] Monitor Performance
+* [ ] Bug Fixes and Updates
 
 
 <!-- License -->
 ## :warning: License
 
-Distributed under the no License. See LICENSE.txt for more information.
+Distributed under the no License.
 
 
 <!-- Contact -->
 ## :handshake: Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Ungureanu Delia Elena - deliaungureanu2001@yahoo.com
 
-Project Link: [https://github.com/Louis3797/awesome-readme-template](https://github.com/Louis3797/awesome-readme-template)
+Untu George Adrian - adrianuntu2001@gmail.com
+
+Project Link: [https://github.com/delia1205/-WADe-Project](https://github.com/delia1205/-WADe-Project)
 
 
 <!-- Acknowledgments -->
 ## :gem: Acknowledgements
 
-Use this section to mention useful resources and libraries that you have used in your projects.
+Resources and libraries we have used in our project:
 
- - [Shields.io](https://shields.io/)
  - [Awesome README](https://github.com/matiassingers/awesome-readme)
- - [Emoji Cheat Sheet](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md#travel--places)
- - [Readme Template](https://github.com/othneildrew/Best-README-Template)
+ - [Free Frontend](https://freefrontend.com/)
+ - [Google Speech-to-Text](https://cloud.google.com/speech-to-text)
+ - [Google Translate API](https://cloud.google.com/translate/docs/reference/rest)
+ - [Firebase Storage](https://firebase.google.com/docs/storage)
+ - [MongoDB](https://www.mongodb.com/)
