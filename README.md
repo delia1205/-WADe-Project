@@ -149,13 +149,35 @@ The primary goal of this project was to create an intuitive and accessible platf
 
 
 <!-- Env Variables -->
-### :key: Environment Variables -----> **TO DO**
+### :key: Environment Variables
 
-To run this project, you will need to add the following environment variables to your .env file
+To run this project, you will need to add a `firebase.js` file with the configurations for the storage bucket.
 
-`API_KEY`
+```javascript
+import { initializeApp } from "firebase/app";
 
-`ANOTHER_API_KEY`
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: import.meta.env.FIREBASE_API_KEY,
+  authDomain: "gait.firebaseapp.com",
+  projectId: "gait",
+  storageBucket: "gait.appspot.com",
+  messagingSenderId: "",
+  appId: "",
+};
+
+const app = initializeApp(firebaseConfig);
+export default app;
+
+```
+
+Also, you will need to add the following environment variables to your .env file:
+
+`FIREBASE_API_KEY`
+
+`MONGO_URI`
+
+`JWT_KEY`
 
 <!-- Getting Started -->
 ## 	:toolbox: Getting Started -----> **TO DO**
@@ -227,18 +249,46 @@ To deploy this project run
 
 
 <!-- Usage --> 
-## :eyes: Usage -----> **TO DO**
+## :eyes: Usage
 
-Use this space to tell a little more about your project and how it can be used. Show additional screenshots, code samples, demos or link to other resources.
+This section provides a step-by-step guide on how to use the GAIT platform to interact with GraphQL APIs using natural language. Whether you're a developer, analyst, or enthusiast, GAIT makes it easy to fetch data from APIs like GitHub, SpaceX, and more without writing complex GraphQL queries.
 
+In the **Usage** section of your README, you should provide clear and concise instructions on how to use your project. This section is crucial for helping users understand how to get started, interact with your application, and make the most of its features. Here's a structured approach to writing this section:
 
-```javascript
-import Component from 'my-project'
+---
 
-function App() {
-  return <Component />
-}
-```
+## :eyes: Usage
+
+This section provides a step-by-step guide on how to use the GAIT platform to interact with GraphQL APIs using natural language. Whether you're a developer, analyst, or enthusiast, GAIT makes it easy to fetch data from APIs like GitHub, SpaceX, and more without writing complex GraphQL queries.
+
+1. **Sign Up or Log In**:
+   - If you're a new user, navigate to the **Sign Up** page to create an account.
+   - Existing users can log in using their credentials on the **Sign In** page.
+
+2. **Submit a Query**:
+   - Once logged in, go to the **Query** page.
+   - Enter your query in plain text or use the **Voice Input** button to speak your query.
+   - Click **Submit** to process your query.
+
+3. **View Results**:
+   - The system will process your query, generate a GraphQL query, and fetch the results from the relevant API.
+   - Results will be displayed in a user-friendly format on the **Results** page.
+
+4. **Save and Manage Queries**:
+   - You can save your queries and results for future reference by clicking the **Save** button.
+   - Access your saved queries and history from the **Profile** page.
+
+### **Example Queries**
+Here are some example queries you can try:
+- **SpaceX**: "What are the latest SpaceX launches?"
+- **Public APIs**: "Get the current weather in New York."
+
+### **Demo**
+Check out our live demo to see GAIT in action: [GAIT Demo](https://github.com/delia1205/-WADe-Project/demo/tutorial.mp4)
+
+### **Additional Resources**
+- [API Documentation](https://github.com/delia1205/-WADe-Project/documentation/tehnical-report.html)
+
 
 <!-- Roadmap -->
 ## :compass: Roadmap
