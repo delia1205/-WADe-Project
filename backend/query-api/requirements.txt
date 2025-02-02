@@ -1,4 +1,9 @@
-
+spacy
+speechrecognition
+flask
+rdflib
 fastapi
 uvicorn
 transformers
+pycountry
+flask_cors
