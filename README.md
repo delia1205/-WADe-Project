@@ -253,14 +253,6 @@ To deploy this project run
 
 This section provides a step-by-step guide on how to use the GAIT platform to interact with GraphQL APIs using natural language. Whether you're a developer, analyst, or enthusiast, GAIT makes it easy to fetch data from APIs like GitHub, SpaceX, and more without writing complex GraphQL queries.
 
-In the **Usage** section of your README, you should provide clear and concise instructions on how to use your project. This section is crucial for helping users understand how to get started, interact with your application, and make the most of its features. Here's a structured approach to writing this section:
-
----
-
-## :eyes: Usage
-
-This section provides a step-by-step guide on how to use the GAIT platform to interact with GraphQL APIs using natural language. Whether you're a developer, analyst, or enthusiast, GAIT makes it easy to fetch data from APIs like GitHub, SpaceX, and more without writing complex GraphQL queries.
-
 1. **Sign Up or Log In**:
    - If you're a new user, navigate to the **Sign Up** page to create an account.
    - Existing users can log in using their credentials on the **Sign In** page.
