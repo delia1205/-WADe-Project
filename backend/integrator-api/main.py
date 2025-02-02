@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS 
 from gql import gql, Client
 from gql.transport.requests import RequestsHTTPTransport
 from SPARQLWrapper import SPARQLWrapper, JSON
@@ -7,6 +8,7 @@ from flasgger import Swagger
 
 
 app = Flask(__name__)
+CORS(app)
 
 app.config['SWAGGER'] = {
     "title": "API Integrator",

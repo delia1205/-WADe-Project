@@ -8,3 +8,5 @@
 /backend/package-lock.json
 /frontend/src/firebase.js
 /backend/integrator-api/.idea
+/backend/integrator-api/__pycache__
+/backend/integrator-api/.pytest_cache
