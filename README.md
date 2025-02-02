@@ -131,7 +131,6 @@ The primary goal of this project was to create an intuitive and accessible platf
 
 - **User Authentication**: Secure login functionality using credentials verified by an authentication API and a user profile database.
 - **Voice Query Input**: Allows users to input queries via voice, leveraging Google’s Speech-to-Text API for conversion to text.
-- **Language Translation**: Supports automatic translation of user queries and query results through Google Translate API, making the system accessible to multilingual users.
 - **Dynamic Query Generation**: Translates user queries into dynamic GraphQL queries via a Query Generator API, which is then sent to public GraphQL APIs for data retrieval.
 - **Query History and Bookmarking**: Users can save and bookmark queries or results, which are stored in the Query History Database. They can also download results for offline access.
 - **Real-time Data Retrieval**: Integrates with various public GraphQL APIs to fetch and display relevant data based on user queries.
@@ -256,6 +255,7 @@ function App() {
 * [x] Integration Testing
 * [x] Set Up Deployment Pipeline
 * [x] Documentation
+* [ ] Multiple Languages Support
 * [ ] Deploy Application
 * [ ] Monitor Performance
 * [ ] Bug Fixes and Updates
@@ -285,6 +285,5 @@ Resources and libraries we have used in our project:
  - [Awesome README](https://github.com/matiassingers/awesome-readme)
  - [Free Frontend](https://freefrontend.com/)
  - [Google Speech-to-Text](https://cloud.google.com/speech-to-text)
- - [Google Translate API](https://cloud.google.com/translate/docs/reference/rest)
  - [Firebase Storage](https://firebase.google.com/docs/storage)
  - [MongoDB](https://www.mongodb.com/)
