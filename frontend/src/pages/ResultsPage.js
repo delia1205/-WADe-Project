@@ -4,9 +4,12 @@ import "../styles/results.css";
 export default function ResultsPage() {
   const [results, setResults] = useState(null);
   const [query, setQuery] = useState(
-    "{ launchesPast(limit: 5) { mission_name launch_date_local } }"
+    "{ countries { code name capital currency } }"
   );
-  const [apiName, setApiName] = useState("spacex");
+  const [apiName, setApiName] = useState("countries");
+  const [queryDescription, setQueryDescription] = useState(
+    "a list of countries with code, name, capital, and currency"
+  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -26,12 +29,15 @@ export default function ResultsPage() {
       });
 
       const data = await response.json();
-      console.log("API Response:", data);
 
-      if (data && data.launchesPast) {
-        setResults(data);
+      if (apiName === "spacex" && data.launchesPast) {
+        setResults(data.launchesPast);
+      } else if (apiName === "countries" && data.countries) {
+        setResults(data.countries);
+      } else if (apiName === "tmdb" && data.results) {
+        setResults(data.results);
       } else {
-        setError("No data found or incorrect data structure.");
+        setError("Unsupported API or incorrect data structure.");
       }
     } catch (error) {
       setError("Error fetching data: " + error.message);
@@ -66,26 +72,67 @@ export default function ResultsPage() {
               <p>Loading results...</p>
             ) : error ? (
               <p className="error-message">{error}</p>
-            ) : results && results.launchesPast ? (
-              results.launchesPast.map((item, index) => (
-                <div key={index} className="item">
-                  <h2 className="item-name">{item.mission_name}</h2>
-                  <p className="item-date">
-                    {new Date(item.launch_date_local).toLocaleString()}
-                  </p>
-                  <p className="item-details">
-                    {item.details || "No details available"}
-                  </p>
-                  <a
-                    href={`https://spacex.com/launches/${item.id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="item-link"
-                  >
-                    Learn More
-                  </a>
-                </div>
-              ))
+            ) : results && results.length > 0 ? (
+              apiName === "spacex" ? (
+                results.map((item, index) => (
+                  <div key={index} className="item">
+                    <h2 className="item-name">{item.mission_name}</h2>
+                    <p className="item-date">
+                      {new Date(item.launch_date_local).toLocaleString()}
+                    </p>
+                    <p className="item-details">
+                      {item.details || "No details available"}
+                    </p>
+                    <a
+                      href={`https://spacex.com/launches/${item.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="item-link"
+                    >
+                      Learn More
+                    </a>
+                  </div>
+                ))
+              ) : apiName === "countries" ? (
+                results.map((item, index) => (
+                  <div key={index} className="item">
+                    <h2 className="item-name">{item.name}</h2>
+                    <p className="item-details">Capital: {item.capital}</p>
+                    <p className="item-date">Code: {item.code}</p>
+                    <a
+                      href={`https://www.google.com/maps/search/${item.name}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="item-link"
+                    >
+                      Learn More
+                    </a>
+                  </div>
+                ))
+              ) : apiName === "tmdb" ? (
+                results.map((item, index) => (
+                  <div key={index} className="item">
+                    <h2 className="item-name">{item.title}</h2>
+                    <p className="item-date">
+                      Release Date:{" "}
+                      {new Date(item.release_date).toLocaleDateString()}
+                    </p>
+                    <p className="item-details">
+                      {item.overview || "No overview available"}
+                    </p>
+                    <a
+                      href={`https://www.themoviedb.org/movie/${item.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="item-link"
+                    >
+                      Learn More
+                    </a>
+                  </div>
+                ))
+              ) : (
+                <p>No results found for your query.</p>
+              )
             ) : (
               <p>No results found for your query.</p>
             )}
@@ -97,8 +144,8 @@ export default function ResultsPage() {
           <div className="results-query-schema">{query}</div>
           <p className="results-query-p">
             <i>
-              This query retrieves the 3 most recent SpaceX launches along with
-              their names, dates, and details.
+              The query results display {queryDescription}.
+              <br />
             </i>
           </p>
         </section>
