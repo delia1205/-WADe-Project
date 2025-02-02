@@ -1,0 +1,1 @@
+<!DOCTYPE html><html><head><title>GraphQL Tool</title></head><body><div id='root'></div></body></html>

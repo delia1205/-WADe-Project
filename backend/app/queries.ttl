@@ -1,0 +1,173 @@
+@prefix ex: <http://example.org/queries#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:query_-2458993610621875672 a ex:Query ;
+    ex:graphqlQuery """
+        {
+          country(code: "JP") {
+            name
+            capital
+            currency
+            languages {
+              name
+            }
+          }
+        }
+        """ ;
+    ex:queryID "8a056e1a-3897-4440-a391-a3d291c1de8c"^^xsd:string ;
+    ex:response "{'data': {'country': {'name': 'Japan', 'capital': 'Tokyo', 'currency': 'JPY', 'languages': [{'name': 'Japanese'}]}}}"^^xsd:string ;
+    ex:userQuery "capital of Japan"^^xsd:string .
+
+ex:query_-2462620756567621635 a ex:Query ;
+    ex:graphqlQuery """
+        {
+          country(code: "UA") {
+            name
+            capital
+            currency
+            languages {
+              name
+            }
+          }
+        }
+        """^^xsd:string ;
+    ex:queryID "807bf94f-ea42-44b9-9652-2426c9d4193c"^^xsd:string ;
+    ex:response "{'data': {'country': {'name': 'Ukraine', 'capital': 'Kyiv', 'currency': 'UAH', 'languages': [{'name': 'Ukrainian'}]}}}"^^xsd:string ;
+    ex:userQuery "what is the capital of Ukraine"^^xsd:string .
+
+ex:query_-3437418791711722319 a ex:Query ;
+    ex:graphqlQuery """
+        {
+          country(code: "GE") {
+            name
+            capital
+            currency
+            languages {
+              name
+            }
+          }
+        }
+        """^^xsd:string ;
+    ex:queryID "449325d5-697d-4e16-8754-68856821a1e0"^^xsd:string ;
+    ex:response "{'data': {'country': {'name': 'Georgia', 'capital': 'Tbilisi', 'currency': 'GEL', 'languages': [{'name': 'Georgian'}]}}}"^^xsd:string ;
+    ex:userQuery "what is the capital of Georgia"^^xsd:string .
+
+ex:query_-3817597044986630473 a ex:Query ;
+    ex:graphqlQuery """
+        {
+          country(code: "UA") {
+            name
+            capital
+            currency
+            languages {
+              name
+            }
+          }
+        }
+        """^^xsd:string ;
+    ex:queryID "1256d180-3b07-4b04-83ce-420ddaaf327c"^^xsd:string ;
+    ex:response "{'data': {'country': {'name': 'Ukraine', 'capital': 'Kyiv', 'currency': 'UAH', 'languages': [{'name': 'Ukrainian'}]}}}"^^xsd:string ;
+    ex:userQuery "Karen is the capital of Ukraine"^^xsd:string .
+
+ex:query_2187031617846120801 a ex:Query ;
+    ex:graphqlQuery """
+        {
+          country(code: "FR") {
+            name
+            capital
+            currency
+            languages {
+              name
+            }
+          }
+        }
+        """^^xsd:string ;
+    ex:queryID "3faa5b9b-8f81-401b-b5dd-8955fbeda615"^^xsd:string ;
+    ex:response "{'data': {'country': {'name': 'France', 'capital': 'Paris', 'currency': 'EUR', 'languages': [{'name': 'French'}]}}}"^^xsd:string ;
+    ex:userQuery "capital of France"^^xsd:string .
+
+ex:query_2924030271565747659 a ex:Query ;
+    ex:graphqlQuery """
+        {
+          country(code: "UA") {
+            name
+            capital
+            currency
+            languages {
+              name
+            }
+          }
+        }
+        """^^xsd:string ;
+    ex:queryID "cd961e81-bc65-437a-9c31-39e6023c0aa8"^^xsd:string ;
+    ex:response "{'data': {'country': {'name': 'Ukraine', 'capital': 'Kyiv', 'currency': 'UAH', 'languages': [{'name': 'Ukrainian'}]}}}"^^xsd:string ;
+    ex:userQuery "Was ist die Hauptstadt der Ukraine?"^^xsd:string .
+
+ex:query_4921886835510944767 a ex:Query ;
+    ex:graphqlQuery """
+        {
+          country(code: "FR") {
+            name
+            capital
+            currency
+            languages {
+              name
+            }
+          }
+        }
+        """^^xsd:string ;
+    ex:queryID "f727ea01-1b3a-4a32-9d89-0856a165d120"^^xsd:string ;
+    ex:response "{'data': {'country': {'name': 'France', 'capital': 'Paris', 'currency': 'EUR', 'languages': [{'name': 'French'}]}}}"^^xsd:string ;
+    ex:userQuery "what is the capital of France"^^xsd:string .
+
+ex:query_5726492494555873987 a ex:Query ;
+    ex:graphqlQuery """
+        {
+          country(code: "FR") {
+            name
+            capital
+            currency
+            languages {
+              name
+            }
+          }
+        }
+        """^^xsd:string ;
+    ex:queryID "132c1618-3ac0-48a5-b791-d811059df586"^^xsd:string ;
+    ex:response "{'data': {'country': {'name': 'France', 'capital': 'Paris', 'currency': 'EUR', 'languages': [{'name': 'French'}]}}}"^^xsd:string ;
+    ex:userQuery "car is the capital of France"^^xsd:string .
+
+ex:query_6014809264980183412 a ex:Query ;
+    ex:graphqlQuery """
+        {
+          country(code: "JP") {
+            name
+            capital
+            currency
+            languages {
+              name
+            }
+          }
+        }
+        """^^xsd:string ;
+    ex:queryID "90f82c36-5d96-4ac7-91d3-b4e22be8f288"^^xsd:string ;
+    ex:response "{'data': {'country': {'name': 'Japan', 'capital': 'Tokyo', 'currency': 'JPY', 'languages': [{'name': 'Japanese'}]}}}"^^xsd:string ;
+    ex:userQuery "what is the capital of Japan"^^xsd:string .
+
+ex:query_7424823363179827529 a ex:Query ;
+    ex:graphqlQuery """
+        {
+          country(code: "FR") {
+            name
+            capital
+            currency
+            languages {
+              name
+            }
+          }
+        }
+        """^^xsd:string ;
+    ex:queryID "5584894a-1a9b-4570-8396-e9a42eca7c27"^^xsd:string ;
+    ex:response "{'data': {'country': {'name': 'France', 'capital': 'Paris', 'currency': 'EUR', 'languages': [{'name': 'French'}]}}}"^^xsd:string ;
+    ex:userQuery "Care este capitala Frantei?"^^xsd:string .
+
