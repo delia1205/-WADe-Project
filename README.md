@@ -108,6 +108,7 @@ The primary goal of this project was to create an intuitive and accessible platf
     <li><a href="https://nodejs.org/en">Node.js</a></li>
     <li><a href="https://graphql.org/">GraphQL</a></li>
     <li><a href="https://cloud.google.com/speech-to-text?hl=en">Google Speech-to-Text</a></li>
+    <li><a href="https://cloud.google.com/translate/docs/reference/rest">Google Translate API</li>
   </ul>
 </details>
 
@@ -131,6 +132,7 @@ The primary goal of this project was to create an intuitive and accessible platf
 
 - **User Authentication**: Secure login functionality using credentials verified by an authentication API and a user profile database.
 - **Voice Query Input**: Allows users to input queries via voice, leveraging Google’s Speech-to-Text API for conversion to text.
+- **Multiple Languages Support**: Translates text input from the user into their preffered language.
 - **Dynamic Query Generation**: Translates user queries into dynamic GraphQL queries via a Query Generator API, which is then sent to public GraphQL APIs for data retrieval.
 - **Query History and Bookmarking**: Users can save and bookmark queries or results, which are stored in the Query History Database. They can also download results for offline access.
 - **Real-time Data Retrieval**: Integrates with various public GraphQL APIs to fetch and display relevant data based on user queries.
@@ -297,8 +299,8 @@ Check out our live demo to see GAIT in action: [GAIT Demo](https://github.com/de
 * [x] Integration Testing
 * [x] Set Up Deployment Pipeline
 * [x] Documentation
-* [ ] Multiple Languages Support
-* [ ] Deploy Application
+* [x] Multiple Languages Support
+* [x] Deploy Application
 * [ ] Monitor Performance
 * [ ] Bug Fixes and Updates
 
@@ -329,3 +331,4 @@ Resources and libraries we have used in our project:
  - [Google Speech-to-Text](https://cloud.google.com/speech-to-text)
  - [Firebase Storage](https://firebase.google.com/docs/storage)
  - [MongoDB](https://www.mongodb.com/)
+ - [Google Translate API](https://cloud.google.com/translate/docs/reference/rest)
