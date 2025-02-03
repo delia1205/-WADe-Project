@@ -9,6 +9,11 @@ from app.rdf_store import RDFStore  # Import RDF storage module
 import json
 import csv
 from io import StringIO
+from pydantic import BaseModel
+
+class QueryRequest(BaseModel):
+    user_input: str
+    user_id: str  # Add user_id to the request
 
 def convert_to_csv(data):
     output = StringIO()
@@ -40,9 +45,6 @@ app.add_middleware(
 
 nlp = NLPProcessor()
 
-class QueryRequest(BaseModel):
-    user_input: str 
-
 graphql_clients = {
     "countries": GraphQLClient("https://countries.trevorblades.com/"),
     "spacex": GraphQLClient("https://spacex-production.up.railway.app/")
@@ -52,6 +54,7 @@ graphql_clients = {
 def process_query(request: QueryRequest):
     """Receives a natural language query and executes the corresponding GraphQL query."""
     user_query = request.user_input
+    user_id = request.user_id  
 
     parsed_query = nlp.process_countries_query(user_query)
     if not parsed_query["entities"]:
@@ -185,8 +188,8 @@ def process_query(request: QueryRequest):
         return {"error": "Unsupported API"}
 
     # Store query and result in RDF
-    query_uri = rdf_store.add_query_result(user_query, gql_query, str(results))
-    rdf_store.save_to_file()
+    query_uri = rdf_store.add_query_result(user_query, gql_query, str(results), user_id=user_id)
+    rdf_store.save_to_mongo()
 
     return {"query": gql_query, "response": results, "link": query_uri}
 

@@ -204,7 +204,9 @@ export default function ResultsPage() {
           <h3 className="results-query">
             The shareable link for this query and results:
           </h3>
-          <div className="results-query-schema">{query_uri}</div>
+          <div className="results-query-schema">
+            http://localhost:5001/query/{query_uri}
+          </div>
         </section>
 
         <main className="results-main">
