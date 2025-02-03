@@ -1,3 +1,4 @@
+# Example for loading a larger spaCy model
 import spacy
 import pycountry
 from langdetect import detect
@@ -57,7 +58,7 @@ class NLPProcessor:
         translated_text = self.get_english_text(text)
         doc = self.nlp(translated_text.lower())
 
-        rocket_keywords = ["falcon 9", "falcon heavy", "starship", "dragon"]
+        rocket_keywords = ["falcon 9", "falcon heavy", "starship", "dragon", "falcon"]
         launch_keywords = ["latest launch", "next launch", "past launches", "upcoming launch"]
         mission_keywords = ["crew mission", "cargo mission", "starlink", "demo"]
 

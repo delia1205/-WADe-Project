@@ -57,38 +57,14 @@ export default function ResultsPage() {
       return <p className="loading-message">Loading results...</p>;
     }
 
-    if (!results.response || !results.response.data) {
+    if (
+      !results.response ||
+      (!results.response.data && !results.response.countries)
+    ) {
       return <p className="error-message">No results found.</p>;
     }
 
-    // Handling Countries API
-    if (results.response.data.country) {
-      const country = results.response.data.country;
-      return (
-        <div className="item">
-          <h2 className="item-name">{country.name}</h2>
-          <p className="item-details">
-            <strong>Capital:</strong> {country.capital}
-          </p>
-          <p className="item-details">
-            <strong>Currency:</strong> {country.currency}
-          </p>
-          <p className="item-details">
-            <strong>Languages:</strong>{" "}
-            {country.languages.map((lang) => lang.name).join(", ")}
-          </p>
-          <a
-            href={`https://www.google.com/maps/search/${country.name}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="item-link"
-          >
-            Learn More
-          </a>
-        </div>
-      );
-    }
-
+    // Handling other response formats (e.g., countries in an array)
     if (results.response.countries && results.response.countries.length > 0) {
       return (
         <div className="items-container">
@@ -112,7 +88,7 @@ export default function ResultsPage() {
       );
     }
 
-    // Handling SpaceX API
+    // Handling SpaceX API (rockets, launches, missions)
     if (
       results.response.data.rockets &&
       results.response.data.rockets.length > 0
@@ -153,15 +129,6 @@ export default function ResultsPage() {
       );
     }
 
-    // Handling SpaceX Missions
-    if (
-      results.response.data.missions &&
-      results.response.data.missions.length === 0
-    ) {
-      return <p className="error-message">No missions found.</p>;
-    }
-
-    // Handling SpaceX Missions (if there are missions)
     if (
       results.response.data.missions &&
       results.response.data.missions.length > 0
@@ -180,7 +147,41 @@ export default function ResultsPage() {
       );
     }
 
-    return <p className="error-message">No SpaceX results found.</p>;
+    if (results.response.data && typeof results.response.data === "object") {
+      const countries = Object.values(results.response.data);
+
+      if (countries.length > 0) {
+        return (
+          <div className="items-container">
+            {countries.map((country, index) => (
+              <div className="item" key={index}>
+                <h2 className="item-name">{country.name}</h2>
+                <p className="item-details">
+                  <strong>Capital:</strong> {country.capital}
+                </p>
+                <p className="item-details">
+                  <strong>Currency:</strong> {country.currency}
+                </p>
+                <p className="item-details">
+                  <strong>Languages:</strong>{" "}
+                  {country.languages.map((lang) => lang.name).join(", ")}
+                </p>
+                <a
+                  href={`https://www.google.com/maps/search/${country.name}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="item-link"
+                >
+                  Learn More
+                </a>
+              </div>
+            ))}
+          </div>
+        );
+      }
+    }
+
+    return <p className="error-message">No relevant results found.</p>;
   };
 
   return (
