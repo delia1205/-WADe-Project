@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" prefix="schema: http://schema.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GAIT: GraphQL API Interactive Tool</title>
+    <link rel="stylesheet" href="scholarly.min.css" />
+  </head>
+  <body>
+    <article typeof="schema:ScholarlyArticle">
+      <header>
+        <h1>GAIT: GraphQL API Interactive Tool</h1>
+        <p><strong>Authors:</strong> Your Name, Team Members</p>
+        <p><strong>Affiliation:</strong> Your Institution</p>
+        <p><strong>Date:</strong> YYYY-MM-DD</p>
+        <p>
+          <strong>Abstract:</strong> This report presents GAIT, a web-based tool
+          that enables users to interact with GraphQL APIs using natural
+          language queries. GAIT simplifies API querying by supporting text and
+          voice input, multi-lingual capabilities, and seamless API integration.
+        </p>
+      </header>
+
+      <nav role="contentinfo">
+        <h2>Table of Contents</h2>
+        <ol role="directory">
+          <li><a href="#introduction">1. Introduction</a></li>
+          <li><a href="#related-work">2. Related Work</a></li>
+          <li><a href="#system-architecture">3. System Architecture</a></li>
+          <li><a href="#implementation">4. Implementation</a></li>
+          <li><a href="#testing-evaluation">5. Testing & Evaluation</a></li>
+          <li><a href="#challenges-solutions">6. Challenges & Solutions</a></li>
+          <li>
+            <a href="#future-work-conclusion">7. Future Work & Conclusion</a>
+          </li>
+          <li><a href="#references">8. References</a></li>
+        </ol>
+      </nav>
+
+      <section typeof="schema:Introduction">
+        <h2>1. Introduction</h2>
+        <p>
+          GAIT (GraphQL API Interactive Tool) is designed to bridge the gap
+          between users and complex GraphQL APIs by allowing interaction through
+          natural language constructs. The tool leverages NLP, voice
+          recognition, and real-time API introspection.
+        </p>
+      </section>
+
+      <section>
+        <h2>2. Related Work</h2>
+        <p>
+          Existing tools such as GraphiQL provide a UI for querying GraphQL, but
+          they require technical knowledge. GAIT improves accessibility by
+          automating query generation using AI-powered natural language
+          understanding.
+        </p>
+      </section>
+
+      <section>
+        <h2>3. System Architecture</h2>
+        <p>GAIT follows a service-oriented architecture consisting of:</p>
+        <ul>
+          <li>
+            <strong>Frontend:</strong> A React-based SPA for UI interaction.
+          </li>
+          <li>
+            <strong>Backend:</strong> A Flask API handling query processing.
+          </li>
+          <li>
+            <strong>APIs:</strong> Google Speech-to-Text, Google Translate, and
+            GraphQL endpoints.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>4. Implementation</h2>
+        <p>
+          The tool consists of a modular backend using Flask and GraphQL
+          processing via gql. The API integrator supports GraphQL, SPARQL, and
+          RDF query handling.
+        </p>
+      </section>
+
+      <section>
+        <h2>5. Testing & Evaluation</h2>
+        <p>
+          GAIT has undergone extensive unit and integration testing using
+          pytest. The results indicate high accuracy in query conversion and
+          reliable API interactions.
+        </p>
+      </section>
+
+      <section>
+        <h2>6. Challenges & Solutions</h2>
+        <p>
+          Key challenges include handling ambiguous user queries and ensuring
+          multilingual support. Solutions involve NLP enhancements and dynamic
+          query introspection.
+        </p>
+      </section>
+
+      <section>
+        <h2>7. Future Work & Conclusion</h2>
+        <p>
+          Future enhancements include expanding API support, optimizing NLP
+          models, and improving query validation mechanisms.
+        </p>
+      </section>
+
+      <footer>
+        <p><strong>References:</strong> Any cited works or resources.</p>
+      </footer>
+    </article>
+  </body>
+</html>

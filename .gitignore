@@ -3,3 +3,12 @@
 /frontend/node_modules
 /backend/__pycache__
 /backend/app/__pycache__
+/backend/app/.idea
+/backend/node_modules
+/backend/.env
+/frontend/package-lock.json
+/backend/package-lock.json
+/frontend/src/firebase.js
+/backend/integrator-api/.idea
+/backend/integrator-api/__pycache__
+/backend/integrator-api/.pytest_cache

@@ -45,6 +45,8 @@ class RDFStore:
 
         self.save_to_file()  #  Save after updating RDF
 
+        return query_uri
+
     def save_to_file(self):
         """Save RDF data to a Turtle file."""
         with open(self.rdf_file, "w") as f:

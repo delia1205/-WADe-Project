@@ -1,0 +1,375 @@
+.user-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-profile {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  background-color: #f9f9f9;
+  color: #333;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 100px auto;
+  min-width: 75vw;
+}
+
+.user-card {
+  justify-self: center;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  min-width: 40vw;
+}
+
+.profile-pic {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #2a1b7e;
+}
+
+.user-name {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #222;
+}
+
+.user-email {
+  font-size: 1rem;
+  color: #555;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.history-card,
+.bookmarks-card,
+.settings-card,
+.export-card {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.history-title,
+.bookmarks-title,
+.settings-title,
+.export-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 12px;
+}
+
+.item-input,
+.bookmark-title {
+  font-size: larger;
+}
+
+.history-items,
+.bookmarks-list {
+  background: #f0f8ff;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #dceefb;
+  min-width: 70vw;
+}
+
+.history-item-buttons,
+.bookmark-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.item-button,
+.bookmark-button {
+  padding: 8px 16px;
+  background: #2a1b7e;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.item-button:hover,
+.bookmark-button:hover {
+  background: #3089bd;
+}
+
+.history-clear-button,
+.clear-boomarks {
+  display: block;
+  margin-top: 12px;
+  width: 50%;
+  padding: 10px;
+  background: #d9534f;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.history-clear-button:hover,
+.clear-boomarks:hover {
+  background: #c9302c;
+}
+
+.settings-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.settings-card div {
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-card label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 4px;
+  min-width: 70vw;
+}
+
+.settings-card input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.dropdown-lang {
+  position: relative;
+  width: 50%;
+}
+
+.dropdown-trigger {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.dropdown-menu li {
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.dropdown-menu li:hover {
+  background: #f0f0f0;
+}
+
+/* Change Password */
+.change-pass {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pass-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Export Section */
+.export-card {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.export-button {
+  padding: 12px 24px;
+  background: #2a1b7e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  max-width: 60%;
+  align-self: center;
+}
+
+.export-button:hover {
+  background: #3089bd;
+  transform: translateY(-2px);
+}
+
+/* Logout Button */
+.logout {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.logout button {
+  padding: 12px 24px;
+  background: #d9534f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.logout button:hover {
+  background: #c9302c;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .user-profile {
+    padding: 16px;
+  }
+
+  .profile-pic {
+    width: 70px;
+    height: 70px;
+  }
+
+  .user-name {
+    font-size: 1.2rem;
+  }
+
+  .user-email {
+    font-size: 0.9rem;
+  }
+
+  .history-item-buttons,
+  .bookmark-buttons {
+    flex-direction: column;
+  }
+
+  .export-card {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .export-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-profile {
+    padding: 12px;
+  }
+
+  .profile-pic {
+    width: 60px;
+    height: 60px;
+  }
+
+  .user-name {
+    font-size: 1rem;
+  }
+
+  .user-email {
+    font-size: 0.85rem;
+  }
+
+  .settings-card input {
+    font-size: 0.9rem;
+  }
+
+  .export-button {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .logout button {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+}
+
+.update-profile-pic {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.update-pic-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #222;
+}
+
+.update-pic-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile-pic-preview {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #2a1b7e;
+}
+
+.profile-pic-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.update-pic-button {
+  padding: 10px 20px;
+  background: #2a1b7e;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.update-pic-button:hover {
+  background: #3089bd;
+}
