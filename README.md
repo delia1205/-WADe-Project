@@ -252,8 +252,7 @@ To deploy this project run
   yarn deploy
 ```
 
-<!-- Side notes -->
-### :sidenotes: Side notes -----> **TO DO**
+<!-- Side Notes -->
 
 
 Since this project is dockerized, one can simply run
@@ -277,7 +276,6 @@ in order to build and run the service.
 **Auth API (Node.js)**: Runs on http://localhost:5002
 
 <!-- API Endpoints -->
-### :api-endpoints: API Endpoints -----> **TO DO**
 
 <div align="center"> 
   <img src="screenshots/api.png" alt="screenshot" />
