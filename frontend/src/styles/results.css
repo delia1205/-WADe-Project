@@ -168,6 +168,10 @@
 }
 
 @media (max-width: 768px) {
+  .results-container {
+    margin-top: 25%;
+  }
+
   .results-title {
     padding-top: 30px;
     font-size: 1.6rem;

@@ -1,54 +1,122 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import "../styles/results.css";
 
 export default function ResultsPage() {
-  const [results, setResults] = useState(null);
-  const [query, setQuery] = useState(
-    "{ countries { code name capital currency } }"
-  );
-  const [apiName, setApiName] = useState("countries");
-  const [queryDescription, setQueryDescription] = useState(
-    "a list of countries with code, name, capital, and currency"
-  );
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const location = useLocation();
+  const { results, query, gql, query_uri } = location.state || {
+    results: null,
+    query: "",
+    gql: "",
+    query_uri: "",
+  };
+  const [exporting, setExporting] = useState(false);
 
-  const fetchResults = async () => {
-    setLoading(true);
-    setError(null);
+  const handleExport = async (format) => {
+    if (!results || !results.response) return;
+
+    setExporting(true);
+
+    const data = results.response.data || results.response.countries;
+
     try {
-      const response = await fetch("http://localhost:3003/graphql-query", {
+      const response = await fetch("http://localhost:5000/export", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          query: query,
-          api_name: apiName,
+          data: data,
+          format: format,
         }),
       });
 
-      const data = await response.json();
-
-      if (apiName === "spacex" && data.launchesPast) {
-        setResults(data.launchesPast);
-      } else if (apiName === "countries" && data.countries) {
-        setResults(data.countries);
-      } else if (apiName === "tmdb" && data.results) {
-        setResults(data.results);
-      } else {
-        setError("Unsupported API or incorrect data structure.");
+      if (!response.ok) {
+        throw new Error("Failed to export results");
       }
+
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `exported_results.${format}`;
+      link.click();
+
+      URL.revokeObjectURL(url);
     } catch (error) {
-      setError("Error fetching data: " + error.message);
+      console.error("Export failed:", error);
+      alert("There was an error exporting the results.");
     } finally {
-      setLoading(false);
+      setExporting(false);
     }
   };
 
-  useEffect(() => {
-    fetchResults();
-  }, [query, apiName]);
+  const renderResults = () => {
+    if (!results) {
+      return <p className="loading-message">Loading results...</p>;
+    }
+
+    if (
+      results.response &&
+      results.response.data &&
+      results.response.data.country
+    ) {
+      const country = results.response.data.country;
+      return (
+        <div className="item">
+          <h2 className="item-name">{country.name}</h2>
+          <p className="item-details">
+            <strong>Capital:</strong> {country.capital}
+          </p>
+          <p className="item-details">
+            <strong>Currency:</strong> {country.currency}
+          </p>
+          <p className="item-details">
+            <strong>Languages:</strong>{" "}
+            {country.languages.map((lang) => lang.name).join(", ")}
+          </p>
+          <a
+            href={`https://www.google.com/maps/search/${country.name}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="item-link"
+          >
+            Learn More
+          </a>
+        </div>
+      );
+    }
+
+    if (
+      results.response &&
+      results.response.countries &&
+      results.response.countries.length > 0
+    ) {
+      return (
+        <div className="items-container">
+          {results.response.countries.map((country) => (
+            <div className="item" key={country.code}>
+              <h2 className="item-name">{country.name}</h2>
+              <p className="item-details">
+                <strong>Continent:</strong> {country.continent.name}
+              </p>
+              <a
+                href={`https://www.google.com/maps/search/${country.name}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="item-link"
+              >
+                Learn More
+              </a>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    return <p className="error-message">No results found for the country.</p>;
+  };
 
   return (
     <>
@@ -66,87 +134,22 @@ export default function ResultsPage() {
           </p>
         </header>
 
+        <section className="results-query-section">
+          <h3 className="results-query">
+            The shareable link for this query and results:
+          </h3>
+          <div className="results-query-schema">{query_uri}</div>
+        </section>
+
         <main className="results-main">
-          <div className="items-container">
-            {loading ? (
-              <p>Loading results...</p>
-            ) : error ? (
-              <p className="error-message">{error}</p>
-            ) : results && results.length > 0 ? (
-              apiName === "spacex" ? (
-                results.map((item, index) => (
-                  <div key={index} className="item">
-                    <h2 className="item-name">{item.mission_name}</h2>
-                    <p className="item-date">
-                      {new Date(item.launch_date_local).toLocaleString()}
-                    </p>
-                    <p className="item-details">
-                      {item.details || "No details available"}
-                    </p>
-                    <a
-                      href={`https://spacex.com/launches/${item.id}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="item-link"
-                    >
-                      Learn More
-                    </a>
-                  </div>
-                ))
-              ) : apiName === "countries" ? (
-                results.map((item, index) => (
-                  <div key={index} className="item">
-                    <h2 className="item-name">{item.name}</h2>
-                    <p className="item-details">Capital: {item.capital}</p>
-                    <p className="item-date">Code: {item.code}</p>
-                    <a
-                      href={`https://www.google.com/maps/search/${item.name}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="item-link"
-                    >
-                      Learn More
-                    </a>
-                  </div>
-                ))
-              ) : apiName === "tmdb" ? (
-                results.map((item, index) => (
-                  <div key={index} className="item">
-                    <h2 className="item-name">{item.title}</h2>
-                    <p className="item-date">
-                      Release Date:{" "}
-                      {new Date(item.release_date).toLocaleDateString()}
-                    </p>
-                    <p className="item-details">
-                      {item.overview || "No overview available"}
-                    </p>
-                    <a
-                      href={`https://www.themoviedb.org/movie/${item.id}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="item-link"
-                    >
-                      Learn More
-                    </a>
-                  </div>
-                ))
-              ) : (
-                <p>No results found for your query.</p>
-              )
-            ) : (
-              <p>No results found for your query.</p>
-            )}
-          </div>
+          <div className="items-container">{renderResults()}</div>
         </main>
 
         <section className="results-query-section">
           <h2 className="results-query">GraphQL Query</h2>
-          <div className="results-query-schema">{query}</div>
+          <div className="results-query-schema">{gql}</div>
           <p className="results-query-p">
-            <i>
-              The query results display {queryDescription}.
-              <br />
-            </i>
+            <i>This query retrieves the following data: {query}</i>
           </p>
         </section>
 
@@ -157,7 +160,20 @@ export default function ResultsPage() {
           >
             Search Again
           </button>
-          <button className="results-button">Export Results</button>
+          <button
+            className="results-button"
+            onClick={() => handleExport("csv")}
+            disabled={exporting}
+          >
+            {exporting ? "Exporting..." : "Export as CSV"}
+          </button>
+          <button
+            className="results-button"
+            onClick={() => handleExport("json")}
+            disabled={exporting}
+          >
+            {exporting ? "Exporting..." : "Export as JSON"}
+          </button>
           <button className="results-button">Feedback</button>
         </footer>
       </div>

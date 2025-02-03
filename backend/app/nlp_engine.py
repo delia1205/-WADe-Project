@@ -17,37 +17,37 @@ class NLPProcessor:
     
     def get_english_text(self, text):
         """Detect query language, translate to English if needed, and process it."""
-        user_input = text
-
-        #  Detect the language of the input
-        detected_lang = detect(user_input)
+        detected_lang = detect(text)
         print(f"Detected language: {detected_lang}")
 
-        #  Translate to English if not already in English
-        if detected_lang != "en":
-            translated_text = self.translator.translate(user_input, src=detected_lang, dest="en").text
-        else:
-            translated_text = user_input
-
-        return translated_text
+        # Translate to English if necessary
+        return self.translator.translate(text, src=detected_lang, dest="en").text if detected_lang != "en" else text
 
     def process_query(self, text):
-        """Extract country names or anime titles and return API type & relevant entities."""
+        """Extract country names, regions, and relevant entities for query processing."""
         translated_text = self.get_english_text(text)
-        # doc = self.nlp(text.lower())
         doc = self.nlp(translated_text.lower())
 
-        country_keywords = ["capital", "currency", "language", "population"]
+        country_keywords = ["capital", "currency", "language", "population", "continent", "region"]
+        currency_keywords = ["euro", "dollar", "yen", "rupee"]
+        region_keywords = ["europe", "asia", "africa", "north america", "south america", "oceania"]
 
-        extracted_countries = [ent.text for ent in doc.ents if ent.label_ == "GPE"]  # Detect countries
+        extracted_countries = [ent.text for ent in doc.ents if ent.label_ == "GPE"]
+        country_codes = [self.get_country_code(country) for country in extracted_countries if self.get_country_code(country)]
 
-        # Convert country names to country codes
-        country_codes = [self.get_country_code(country) for country in extracted_countries]
-        country_codes = [code for code in country_codes if code]  # Remove None values
+        detected_regions = [region for region in region_keywords if region in translated_text.lower()]
+        detected_currencies = [word for word in currency_keywords if word in translated_text.lower()]
 
-        # Determine if the question is about a country or anime
-        if any(word in text.lower() for word in country_keywords) and country_codes:
-            return {"api": "countries", "type": "country", "entities": country_codes}
+        print(f"Detected text: {translated_text}")
+        print(f"Detected regions: {detected_regions}")
 
-        return {"api": "countries", "type": "general", "entities": country_codes}  # Default to Countries API
+        if country_codes:
+            return {"api": "countries", "type": "single" if len(country_codes) == 1 else "multiple", "entities": country_codes}
 
+        if detected_regions: 
+            return {"api": "countries", "type": "region", "entities": detected_regions}
+
+        if detected_currencies:
+            return {"api": "countries", "type": "currency", "entities": detected_currencies}
+
+        return {"api": "countries", "type": "general", "entities": []} 

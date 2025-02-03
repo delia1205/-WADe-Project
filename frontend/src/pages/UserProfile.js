@@ -133,7 +133,7 @@ export default function UserProfile() {
       const formData = { token: userData.token, photoURL: imageURL };
       try {
         const response = await fetch(
-          `http://localhost:3002/api/user/update/${userData._id}`,
+          `http://localhost:5002/api/user/update/${userData._id}`,
           {
             method: "PUT",
             headers: {
@@ -203,7 +203,7 @@ export default function UserProfile() {
 
     try {
       const response = await fetch(
-        `http://localhost:3002/api/user/update-password/${userData._id}`,
+        `http://localhost:5002/api/user/update-password/${userData._id}`,
         {
           method: "PUT",
           headers: {

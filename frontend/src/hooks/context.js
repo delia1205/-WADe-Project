@@ -15,7 +15,7 @@ const UserContextProvider = ({ children }) => {
   const login = async (username, password) => {
     try {
       const response = await axios.post(
-        "http://localhost:3002/api/auth/signin",
+        "http://localhost:5002/api/auth/signin",
         { username, password }
       );
       const user = response.data;
@@ -37,7 +37,7 @@ const UserContextProvider = ({ children }) => {
 
   const register = async (username, email, password) => {
     try {
-      await axios.post("http://localhost:3002/api/auth/signup", {
+      await axios.post("http://localhost:5002/api/auth/signup", {
         username,
         email,
         password,
