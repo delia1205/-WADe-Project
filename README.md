@@ -57,6 +57,8 @@
   * [Running Tests](#test_tube-running-tests)
   * [Run Locally](#running-run-locally)
   * [Deployment](#triangular_flag_on_post-deployment)
+  * [Side Notes](#sidenotes)
+  * [API Endpoints](#api-endpoints)
 - [Usage](#eyes-usage)
 - [Roadmap](#compass-roadmap)
 - [License](#warning-license)
@@ -137,6 +139,7 @@ The primary goal of this project was to create an intuitive and accessible platf
 - **Query History and Bookmarking**: Users can save and bookmark queries or results, which are stored in the Query History Database. They can also download results for offline access.
 - **Real-time Data Retrieval**: Integrates with various public GraphQL APIs to fetch and display relevant data based on user queries.
 - **Intuitive User Interface**: Front-end interface built with React, offering a seamless and responsive experience for interacting with the system.
+- **Natural Language Processing (NLP)** to extract query intent.
 
 <!-- Color Reference -->
 ### :art: Color Reference
@@ -249,6 +252,36 @@ To deploy this project run
   yarn deploy
 ```
 
+<!-- Side notes -->
+### :sidenotes: Side notes -----> **TO DO**
+
+
+Since this project is dockerized, one can simply run
+
+```bash
+  docker --version
+  docker-compose --version
+```
+
+in order to ensure Docker and Docker Compose are installed and
+
+```bash
+  docker-compose up --build
+```
+
+in order to build and run the service.
+
+**Backend (FastAPI):** Runs on http://localhost:5000
+**SPARQL Endpoint**: Runs on http://localhost:5001
+**Frontend (React)**: Runs on http://localhost:3000
+**Auth API (Node.js)**: Runs on http://localhost:5002
+
+<!-- API Endpoints -->
+### :api-endpoints: API Endpoints -----> **TO DO**
+
+<div align="center"> 
+  <img src="screenshots/api.png" alt="screenshot" />
+</div>
 
 <!-- Usage --> 
 ## :eyes: Usage
@@ -332,3 +365,20 @@ Resources and libraries we have used in our project:
  - [Firebase Storage](https://firebase.google.com/docs/storage)
  - [MongoDB](https://www.mongodb.com/)
  - [Google Translate API](https://cloud.google.com/translate/docs/reference/rest)
+ - [Docker Documentation](https://docs.docker.com/)
+ - [FastAPI Documentation](https://fastapi.tiangolo.com/)
+ - [GraphQL Documentation](https://graphql.org/learn/)
+ - [SPARQL Query Language](https://www.w3.org/TR/sparql11-query/)
+ - [React Documentation](https://reactjs.org/docs/getting-started.html)
+ - [RDFlib (RDF for Python)](https://rdflib.readthedocs.io/en/stable/)
+ - [PyTorch Official Site](https://pytorch.org/)
+ - [Langdetect (Language Detection)](https://pypi.org/project/langdetect/)
+ - [i18next (Internationalization in React)](https://www.i18next.com/)
+ - [Express.js (Node.js Framework)](https://expressjs.com/)
+ - [Axios (HTTP Client for JavaScript)](https://axios-http.com/)
+ - [Jest (Testing for JavaScript)](https://jestjs.io/)
+ - [Pytest (Python Testing Framework)](https://pytest.org/)
+ - [RDFlib SPARQL Query Examples](https://rdflib.readthedocs.io/en/stable/intro_to_sparql.html)
+ - [Google Cloud Natural Language API](https://cloud.google.com/natural-language)
+ - [OpenAI API (GPT Integration)](https://platform.openai.com/docs/)
+ 
