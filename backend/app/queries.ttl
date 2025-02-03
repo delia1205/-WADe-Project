@@ -1,6 +1,19 @@
 @prefix ex: <http://example.org/queries#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+ex:query_-187894062019721253 a ex:Query ;
+    ex:graphqlQuery """
+            {
+              astronauts {
+                name
+                agency
+              }
+            }
+            """^^xsd:string ;
+    ex:queryID "5588b7c1-adf7-43f8-9e9f-1a7a120b2905"^^xsd:string ;
+    ex:response "{'errors': [{'message': 'Cannot query field \"astronauts\" on type \"Query\".', 'locations': [{'line': 3, 'column': 15}], 'extensions': {'code': 'GRAPHQL_VALIDATION_FAILED'}}]}"^^xsd:string ;
+    ex:userQuery "Which astronauts have flown with SpaceX?"^^xsd:string .
+
 ex:query_-2458993610621875672 a ex:Query ;
     ex:graphqlQuery """\r
         {\r
@@ -34,6 +47,22 @@ ex:query_-2462620756567621635 a ex:Query ;
     ex:queryID "807bf94f-ea42-44b9-9652-2426c9d4193c"^^xsd:string ;
     ex:response "{'data': {'country': {'name': 'Ukraine', 'capital': 'Kyiv', 'currency': 'UAH', 'languages': [{'name': 'Ukrainian'}]}}}"^^xsd:string ;
     ex:userQuery "what is the capital of Ukraine"^^xsd:string .
+
+ex:query_-2609646588989053325 a ex:Query ;
+    ex:graphqlQuery """
+            {
+              launches(limit: 5) {
+                mission_name
+                launch_date_utc
+                rocket {
+                  rocket_name
+                }
+              }
+            }
+            """^^xsd:string ;
+    ex:queryID "ce611aaa-8fa8-4239-94d0-baf979475fdd"^^xsd:string ;
+    ex:response "{'data': {'launches': [{'mission_name': 'FalconSat', 'launch_date_utc': '2006-03-24T22:30:00.000Z', 'rocket': {'rocket_name': 'Falcon 1'}}, {'mission_name': 'DemoSat', 'launch_date_utc': '2007-03-21T01:10:00.000Z', 'rocket': {'rocket_name': 'Falcon 1'}}, {'mission_name': 'Trailblazer', 'launch_date_utc': '2008-08-03T03:34:00.000Z', 'rocket': {'rocket_name': 'Falcon 1'}}, {'mission_name': 'RatSat', 'launch_date_utc': '2008-09-28T23:15:00.000Z', 'rocket': {'rocket_name': 'Falcon 1'}}, {'mission_name': 'RazakSat', 'launch_date_utc': '2009-07-13T03:35:00.000Z', 'rocket': {'rocket_name': 'Falcon 1'}}]}}"^^xsd:string ;
+    ex:userQuery "latest launch on spacex"^^xsd:string .
 
 ex:query_-2758269491599276985 a ex:Query ;
     ex:graphqlQuery """
@@ -84,6 +113,20 @@ ex:query_-3437418791711722319 a ex:Query ;
     ex:queryID "449325d5-697d-4e16-8754-68856821a1e0"^^xsd:string ;
     ex:response "{'data': {'country': {'name': 'Georgia', 'capital': 'Tbilisi', 'currency': 'GEL', 'languages': [{'name': 'Georgian'}]}}}"^^xsd:string ;
     ex:userQuery "what is the capital of Georgia"^^xsd:string .
+
+ex:query_-3764281276415748580 a ex:Query ;
+    ex:graphqlQuery """
+            {
+              rockets {
+                id
+                name
+                description
+              }
+            }
+            """^^xsd:string ;
+    ex:queryID "2fb6f948-a29b-40d4-b73e-83f60d4946d8"^^xsd:string ;
+    ex:response "{'data': {'rockets': [{'id': '5e9d0d95eda69955f709d1eb', 'name': 'Falcon 1', 'description': 'The Falcon 1 was an expendable launch system privately developed and manufactured by SpaceX during 2006-2009. On 28 September 2008, Falcon 1 became the first privately-developed liquid-fuel launch vehicle to go into orbit around the Earth.'}, {'id': '5e9d0d95eda69973a809d1ec', 'name': 'Falcon 9', 'description': 'Falcon 9 is a two-stage rocket designed and manufactured by SpaceX for the reliable and safe transport of satellites and the Dragon spacecraft into orbit.'}, {'id': '5e9d0d95eda69974db09d1ed', 'name': 'Falcon Heavy', 'description': 'With the ability to lift into orbit over 54 metric tons (119,000 lb)--a mass equivalent to a 737 jetliner loaded with passengers, crew, luggage and fuel--Falcon Heavy can lift more than twice the payload of the next closest operational vehicle, the Delta IV Heavy, at one-third the cost.'}, {'id': '5e9d0d96eda699382d09d1ee', 'name': 'Starship', 'description': 'Starship and Super Heavy Rocket represent a fully reusable transportation system designed to service all Earth orbit needs as well as the Moon and Mars. This two-stage vehicle — composed of the Super Heavy rocket (booster) and Starship (ship) — will eventually replace Falcon 9, Falcon Heavy and Dragon.'}]}}"^^xsd:string ;
+    ex:userQuery "Tell me about the Falcon 9 rocket"^^xsd:string .
 
 ex:query_-3817597044986630473 a ex:Query ;
     ex:graphqlQuery """\r
@@ -186,6 +229,22 @@ ex:query_-657909264562041033 a ex:Query ;
     ex:response "{'data': {'country': {'name': 'France', 'capital': 'Paris', 'currency': 'EUR', 'languages': [{'name': 'French'}]}}}"^^xsd:string ;
     ex:userQuery "what is the capital of france"^^xsd:string .
 
+ex:query_-6923276697553354611 a ex:Query ;
+    ex:graphqlQuery """
+            {
+              launches(limit: 5) {
+                mission_name
+                launch_date_utc
+                rocket {
+                  rocket_name
+                }
+              }
+            }
+            """^^xsd:string ;
+    ex:queryID "d57c384f-835f-4f25-911d-618d05356e6a"^^xsd:string ;
+    ex:response "{'data': {'launches': [{'mission_name': 'FalconSat', 'launch_date_utc': '2006-03-24T22:30:00.000Z', 'rocket': {'rocket_name': 'Falcon 1'}}, {'mission_name': 'DemoSat', 'launch_date_utc': '2007-03-21T01:10:00.000Z', 'rocket': {'rocket_name': 'Falcon 1'}}, {'mission_name': 'Trailblazer', 'launch_date_utc': '2008-08-03T03:34:00.000Z', 'rocket': {'rocket_name': 'Falcon 1'}}, {'mission_name': 'RatSat', 'launch_date_utc': '2008-09-28T23:15:00.000Z', 'rocket': {'rocket_name': 'Falcon 1'}}, {'mission_name': 'RazakSat', 'launch_date_utc': '2009-07-13T03:35:00.000Z', 'rocket': {'rocket_name': 'Falcon 1'}}]}}"^^xsd:string ;
+    ex:userQuery "latest launch spacex"^^xsd:string .
+
 ex:query_-734036585535796383 a ex:Query ;
     ex:graphqlQuery """
         {
@@ -212,6 +271,22 @@ ex:query_-7352583011676205996 a ex:Query ;
     ex:response "{'countries': []}"^^xsd:string ;
     ex:userQuery "all countries with euro currency"^^xsd:string .
 
+ex:query_-7601455955416311503 a ex:Query ;
+    ex:graphqlQuery """
+            {
+              launches(limit: 5) {
+                mission_name
+                launch_date_utc
+                rocket {
+                  rocket_name
+                }
+              }
+            }
+            """^^xsd:string ;
+    ex:queryID "c5895442-1fd3-4557-b43d-5fe25a1c9c17"^^xsd:string ;
+    ex:response "{'data': {'launches': [{'mission_name': 'FalconSat', 'launch_date_utc': '2006-03-24T22:30:00.000Z', 'rocket': {'rocket_name': 'Falcon 1'}}, {'mission_name': 'DemoSat', 'launch_date_utc': '2007-03-21T01:10:00.000Z', 'rocket': {'rocket_name': 'Falcon 1'}}, {'mission_name': 'Trailblazer', 'launch_date_utc': '2008-08-03T03:34:00.000Z', 'rocket': {'rocket_name': 'Falcon 1'}}, {'mission_name': 'RatSat', 'launch_date_utc': '2008-09-28T23:15:00.000Z', 'rocket': {'rocket_name': 'Falcon 1'}}, {'mission_name': 'RazakSat', 'launch_date_utc': '2009-07-13T03:35:00.000Z', 'rocket': {'rocket_name': 'Falcon 1'}}]}}"^^xsd:string ;
+    ex:userQuery "latest launch from spacex"^^xsd:string .
+
 ex:query_-7803838466006520578 a ex:Query ;
     ex:graphqlQuery """
         {
@@ -224,6 +299,36 @@ ex:query_-7803838466006520578 a ex:Query ;
     ex:queryID "9509a38e-5cfc-4336-bcf7-58f70d35492b"^^xsd:string ;
     ex:response "{'countries': []}"^^xsd:string ;
     ex:userQuery "all countries using euro as currency"^^xsd:string .
+
+ex:query_-7948899185976085066 a ex:Query ;
+    ex:graphqlQuery """
+            {
+              launches(limit: 5) {
+                mission_name
+                launch_date_utc
+                rocket {
+                  rocket_name
+                }
+              }
+            }
+            """^^xsd:string ;
+    ex:queryID "c4a983ab-91a9-439b-90de-aae0c976f722"^^xsd:string ;
+    ex:response "{'data': {'launches': [{'mission_name': 'FalconSat', 'launch_date_utc': '2006-03-24T22:30:00.000Z', 'rocket': {'rocket_name': 'Falcon 1'}}, {'mission_name': 'DemoSat', 'launch_date_utc': '2007-03-21T01:10:00.000Z', 'rocket': {'rocket_name': 'Falcon 1'}}, {'mission_name': 'Trailblazer', 'launch_date_utc': '2008-08-03T03:34:00.000Z', 'rocket': {'rocket_name': 'Falcon 1'}}, {'mission_name': 'RatSat', 'launch_date_utc': '2008-09-28T23:15:00.000Z', 'rocket': {'rocket_name': 'Falcon 1'}}, {'mission_name': 'RazakSat', 'launch_date_utc': '2009-07-13T03:35:00.000Z', 'rocket': {'rocket_name': 'Falcon 1'}}]}}"^^xsd:string ;
+    ex:userQuery "latest launches spacex"^^xsd:string .
+
+ex:query_-8468027398704481333 a ex:Query ;
+    ex:graphqlQuery """
+            {
+              rockets {
+                id
+                name
+                description
+              }
+            }
+            """^^xsd:string ;
+    ex:queryID "4a1008ec-73ac-4afd-9be6-9985765aa491"^^xsd:string ;
+    ex:response "{'data': {'rockets': [{'id': '5e9d0d95eda69955f709d1eb', 'name': 'Falcon 1', 'description': 'The Falcon 1 was an expendable launch system privately developed and manufactured by SpaceX during 2006-2009. On 28 September 2008, Falcon 1 became the first privately-developed liquid-fuel launch vehicle to go into orbit around the Earth.'}, {'id': '5e9d0d95eda69973a809d1ec', 'name': 'Falcon 9', 'description': 'Falcon 9 is a two-stage rocket designed and manufactured by SpaceX for the reliable and safe transport of satellites and the Dragon spacecraft into orbit.'}, {'id': '5e9d0d95eda69974db09d1ed', 'name': 'Falcon Heavy', 'description': 'With the ability to lift into orbit over 54 metric tons (119,000 lb)--a mass equivalent to a 737 jetliner loaded with passengers, crew, luggage and fuel--Falcon Heavy can lift more than twice the payload of the next closest operational vehicle, the Delta IV Heavy, at one-third the cost.'}, {'id': '5e9d0d96eda699382d09d1ee', 'name': 'Starship', 'description': 'Starship and Super Heavy Rocket represent a fully reusable transportation system designed to service all Earth orbit needs as well as the Moon and Mars. This two-stage vehicle — composed of the Super Heavy rocket (booster) and Starship (ship) — will eventually replace Falcon 9, Falcon Heavy and Dragon.'}]}}"^^xsd:string ;
+    ex:userQuery "List astronauts who flew in Crew Dragon."^^xsd:string .
 
 ex:query_1404502101650305040 a ex:Query ;
     ex:graphqlQuery """
@@ -241,6 +346,23 @@ ex:query_1404502101650305040 a ex:Query ;
     ex:queryID "26dbe012-70e7-4fcd-bf6b-867325870edc"^^xsd:string ;
     ex:response "{'data': {'country': {'name': 'France', 'capital': 'Paris', 'currency': 'EUR', 'languages': [{'name': 'French'}]}}}"^^xsd:string ;
     ex:userQuery "france"^^xsd:string .
+
+ex:query_1494028723553758290 a ex:Query ;
+    ex:graphqlQuery """
+        {
+          country(code: "FR") {
+            name
+            capital
+            currency
+            languages {
+              name
+            }
+          }
+        }
+        """^^xsd:string ;
+    ex:queryID "6d155586-aa05-4593-89dc-25439c7fe6c1"^^xsd:string ;
+    ex:response "{'data': {'country': {'name': 'France', 'capital': 'Paris', 'currency': 'EUR', 'languages': [{'name': 'French'}]}}}"^^xsd:string ;
+    ex:userQuery "what is the capital of france"^^xsd:string .
 
 ex:query_2187031617846120801 a ex:Query ;
     ex:graphqlQuery """\r
@@ -322,6 +444,20 @@ ex:query_3033112383333533071 a ex:Query ;
     ex:response "{'countries': []}"^^xsd:string ;
     ex:userQuery "all countries using euro as currency"^^xsd:string .
 
+ex:query_339405281599930362 a ex:Query ;
+    ex:graphqlQuery """
+            {
+              rockets {
+                id
+                name
+                description
+              }
+            }
+            """^^xsd:string ;
+    ex:queryID "7333dfcd-1f01-4e50-a64a-5faa9a3f2ca3"^^xsd:string ;
+    ex:response "{'data': {'rockets': [{'id': '5e9d0d95eda69955f709d1eb', 'name': 'Falcon 1', 'description': 'The Falcon 1 was an expendable launch system privately developed and manufactured by SpaceX during 2006-2009. On 28 September 2008, Falcon 1 became the first privately-developed liquid-fuel launch vehicle to go into orbit around the Earth.'}, {'id': '5e9d0d95eda69973a809d1ec', 'name': 'Falcon 9', 'description': 'Falcon 9 is a two-stage rocket designed and manufactured by SpaceX for the reliable and safe transport of satellites and the Dragon spacecraft into orbit.'}, {'id': '5e9d0d95eda69974db09d1ed', 'name': 'Falcon Heavy', 'description': 'With the ability to lift into orbit over 54 metric tons (119,000 lb)--a mass equivalent to a 737 jetliner loaded with passengers, crew, luggage and fuel--Falcon Heavy can lift more than twice the payload of the next closest operational vehicle, the Delta IV Heavy, at one-third the cost.'}, {'id': '5e9d0d96eda699382d09d1ee', 'name': 'Starship', 'description': 'Starship and Super Heavy Rocket represent a fully reusable transportation system designed to service all Earth orbit needs as well as the Moon and Mars. This two-stage vehicle — composed of the Super Heavy rocket (booster) and Starship (ship) — will eventually replace Falcon 9, Falcon Heavy and Dragon.'}]}}"^^xsd:string ;
+    ex:userQuery "Tell me about the Falcon 9 rocket."^^xsd:string .
+
 ex:query_3620599687579860140 a ex:Query ;
     ex:graphqlQuery """
         {
@@ -334,6 +470,23 @@ ex:query_3620599687579860140 a ex:Query ;
     ex:queryID "72892769-bd8c-4290-a2b1-d052411ee030"^^xsd:string ;
     ex:response "{'countries': []}"^^xsd:string ;
     ex:userQuery "all countries with euro currency"^^xsd:string .
+
+ex:query_4022652254313604618 a ex:Query ;
+    ex:graphqlQuery """
+            {
+              country(code: "FR") {
+                name
+                capital
+                currency
+                languages {
+                  name
+                }
+              }
+            }
+            """^^xsd:string ;
+    ex:queryID "b4377aa8-f5d6-4fbc-972b-1479b9f65fc6"^^xsd:string ;
+    ex:response "{'data': {'country': {'name': 'France', 'capital': 'Paris', 'currency': 'EUR', 'languages': [{'name': 'French'}]}}}"^^xsd:string ;
+    ex:userQuery "france"^^xsd:string .
 
 ex:query_4101251360846045169 a ex:Query ;
     ex:graphqlQuery """
@@ -402,6 +555,36 @@ ex:query_5166978803604577096 a ex:Query ;
     ex:response "{'countries': [{'code': 'AE', 'name': 'United Arab Emirates', 'continent': {'name': 'Asia'}}, {'code': 'AF', 'name': 'Afghanistan', 'continent': {'name': 'Asia'}}, {'code': 'AM', 'name': 'Armenia', 'continent': {'name': 'Asia'}}, {'code': 'AZ', 'name': 'Azerbaijan', 'continent': {'name': 'Asia'}}, {'code': 'BD', 'name': 'Bangladesh', 'continent': {'name': 'Asia'}}, {'code': 'BH', 'name': 'Bahrain', 'continent': {'name': 'Asia'}}, {'code': 'BN', 'name': 'Brunei', 'continent': {'name': 'Asia'}}, {'code': 'BT', 'name': 'Bhutan', 'continent': {'name': 'Asia'}}, {'code': 'CC', 'name': 'Cocos [Keeling] Islands', 'continent': {'name': 'Asia'}}, {'code': 'CN', 'name': 'China', 'continent': {'name': 'Asia'}}, {'code': 'CX', 'name': 'Christmas Island', 'continent': {'name': 'Asia'}}, {'code': 'GE', 'name': 'Georgia', 'continent': {'name': 'Asia'}}, {'code': 'HK', 'name': 'Hong Kong', 'continent': {'name': 'Asia'}}, {'code': 'ID', 'name': 'Indonesia', 'continent': {'name': 'Asia'}}, {'code': 'IL', 'name': 'Israel', 'continent': {'name': 'Asia'}}, {'code': 'IN', 'name': 'India', 'continent': {'name': 'Asia'}}, {'code': 'IO', 'name': 'British Indian Ocean Territory', 'continent': {'name': 'Asia'}}, {'code': 'IQ', 'name': 'Iraq', 'continent': {'name': 'Asia'}}, {'code': 'IR', 'name': 'Iran', 'continent': {'name': 'Asia'}}, {'code': 'JO', 'name': 'Jordan', 'continent': {'name': 'Asia'}}, {'code': 'JP', 'name': 'Japan', 'continent': {'name': 'Asia'}}, {'code': 'KG', 'name': 'Kyrgyzstan', 'continent': {'name': 'Asia'}}, {'code': 'KH', 'name': 'Cambodia', 'continent': {'name': 'Asia'}}, {'code': 'KP', 'name': 'North Korea', 'continent': {'name': 'Asia'}}, {'code': 'KR', 'name': 'South Korea', 'continent': {'name': 'Asia'}}, {'code': 'KW', 'name': 'Kuwait', 'continent': {'name': 'Asia'}}, {'code': 'KZ', 'name': 'Kazakhstan', 'continent': {'name': 'Asia'}}, {'code': 'LA', 'name': 'Laos', 'continent': {'name': 'Asia'}}, {'code': 'LB', 'name': 'Lebanon', 'continent': {'name': 'Asia'}}, {'code': 'LK', 'name': 'Sri Lanka', 'continent': {'name': 'Asia'}}, {'code': 'MM', 'name': 'Myanmar [Burma]', 'continent': {'name': 'Asia'}}, {'code': 'MN', 'name': 'Mongolia', 'continent': {'name': 'Asia'}}, {'code': 'MO', 'name': 'Macao', 'continent': {'name': 'Asia'}}, {'code': 'MV', 'name': 'Maldives', 'continent': {'name': 'Asia'}}, {'code': 'MY', 'name': 'Malaysia', 'continent': {'name': 'Asia'}}, {'code': 'NP', 'name': 'Nepal', 'continent': {'name': 'Asia'}}, {'code': 'OM', 'name': 'Oman', 'continent': {'name': 'Asia'}}, {'code': 'PH', 'name': 'Philippines', 'continent': {'name': 'Asia'}}, {'code': 'PK', 'name': 'Pakistan', 'continent': {'name': 'Asia'}}, {'code': 'PS', 'name': 'Palestine', 'continent': {'name': 'Asia'}}, {'code': 'QA', 'name': 'Qatar', 'continent': {'name': 'Asia'}}, {'code': 'SA', 'name': 'Saudi Arabia', 'continent': {'name': 'Asia'}}, {'code': 'SG', 'name': 'Singapore', 'continent': {'name': 'Asia'}}, {'code': 'SY', 'name': 'Syria', 'continent': {'name': 'Asia'}}, {'code': 'TH', 'name': 'Thailand', 'continent': {'name': 'Asia'}}, {'code': 'TJ', 'name': 'Tajikistan', 'continent': {'name': 'Asia'}}, {'code': 'TM', 'name': 'Turkmenistan', 'continent': {'name': 'Asia'}}, {'code': 'TR', 'name': 'Turkey', 'continent': {'name': 'Asia'}}, {'code': 'TW', 'name': 'Taiwan', 'continent': {'name': 'Asia'}}, {'code': 'UZ', 'name': 'Uzbekistan', 'continent': {'name': 'Asia'}}, {'code': 'VN', 'name': 'Vietnam', 'continent': {'name': 'Asia'}}, {'code': 'YE', 'name': 'Yemen', 'continent': {'name': 'Asia'}}]}"^^xsd:string ;
     ex:userQuery "all asian countries"^^xsd:string .
 
+ex:query_5177656113653672192 a ex:Query ;
+    ex:graphqlQuery """
+            {
+              missions {
+                id
+                name
+                description
+              }
+            }
+            """^^xsd:string ;
+    ex:queryID "e75c3862-da38-4b01-9d6c-a7032b627f7f"^^xsd:string ;
+    ex:response "{'data': {'missions': []}}"^^xsd:string ;
+    ex:userQuery "Tell me about the Starlink missions."^^xsd:string .
+
+ex:query_5539935508339882362 a ex:Query ;
+    ex:graphqlQuery """
+        {
+          countries {
+            code
+            name
+            continent {
+              name
+            }
+          }
+        }
+        """^^xsd:string ;
+    ex:queryID "85479a57-a761-47cf-9595-4e4b10475bdd"^^xsd:string ;
+    ex:response "{'countries': [{'code': 'AE', 'name': 'United Arab Emirates', 'continent': {'name': 'Asia'}}, {'code': 'AF', 'name': 'Afghanistan', 'continent': {'name': 'Asia'}}, {'code': 'AM', 'name': 'Armenia', 'continent': {'name': 'Asia'}}, {'code': 'AZ', 'name': 'Azerbaijan', 'continent': {'name': 'Asia'}}, {'code': 'BD', 'name': 'Bangladesh', 'continent': {'name': 'Asia'}}, {'code': 'BH', 'name': 'Bahrain', 'continent': {'name': 'Asia'}}, {'code': 'BN', 'name': 'Brunei', 'continent': {'name': 'Asia'}}, {'code': 'BT', 'name': 'Bhutan', 'continent': {'name': 'Asia'}}, {'code': 'CC', 'name': 'Cocos [Keeling] Islands', 'continent': {'name': 'Asia'}}, {'code': 'CN', 'name': 'China', 'continent': {'name': 'Asia'}}, {'code': 'CX', 'name': 'Christmas Island', 'continent': {'name': 'Asia'}}, {'code': 'GE', 'name': 'Georgia', 'continent': {'name': 'Asia'}}, {'code': 'HK', 'name': 'Hong Kong', 'continent': {'name': 'Asia'}}, {'code': 'ID', 'name': 'Indonesia', 'continent': {'name': 'Asia'}}, {'code': 'IL', 'name': 'Israel', 'continent': {'name': 'Asia'}}, {'code': 'IN', 'name': 'India', 'continent': {'name': 'Asia'}}, {'code': 'IO', 'name': 'British Indian Ocean Territory', 'continent': {'name': 'Asia'}}, {'code': 'IQ', 'name': 'Iraq', 'continent': {'name': 'Asia'}}, {'code': 'IR', 'name': 'Iran', 'continent': {'name': 'Asia'}}, {'code': 'JO', 'name': 'Jordan', 'continent': {'name': 'Asia'}}, {'code': 'JP', 'name': 'Japan', 'continent': {'name': 'Asia'}}, {'code': 'KG', 'name': 'Kyrgyzstan', 'continent': {'name': 'Asia'}}, {'code': 'KH', 'name': 'Cambodia', 'continent': {'name': 'Asia'}}, {'code': 'KP', 'name': 'North Korea', 'continent': {'name': 'Asia'}}, {'code': 'KR', 'name': 'South Korea', 'continent': {'name': 'Asia'}}, {'code': 'KW', 'name': 'Kuwait', 'continent': {'name': 'Asia'}}, {'code': 'KZ', 'name': 'Kazakhstan', 'continent': {'name': 'Asia'}}, {'code': 'LA', 'name': 'Laos', 'continent': {'name': 'Asia'}}, {'code': 'LB', 'name': 'Lebanon', 'continent': {'name': 'Asia'}}, {'code': 'LK', 'name': 'Sri Lanka', 'continent': {'name': 'Asia'}}, {'code': 'MM', 'name': 'Myanmar [Burma]', 'continent': {'name': 'Asia'}}, {'code': 'MN', 'name': 'Mongolia', 'continent': {'name': 'Asia'}}, {'code': 'MO', 'name': 'Macao', 'continent': {'name': 'Asia'}}, {'code': 'MV', 'name': 'Maldives', 'continent': {'name': 'Asia'}}, {'code': 'MY', 'name': 'Malaysia', 'continent': {'name': 'Asia'}}, {'code': 'NP', 'name': 'Nepal', 'continent': {'name': 'Asia'}}, {'code': 'OM', 'name': 'Oman', 'continent': {'name': 'Asia'}}, {'code': 'PH', 'name': 'Philippines', 'continent': {'name': 'Asia'}}, {'code': 'PK', 'name': 'Pakistan', 'continent': {'name': 'Asia'}}, {'code': 'PS', 'name': 'Palestine', 'continent': {'name': 'Asia'}}, {'code': 'QA', 'name': 'Qatar', 'continent': {'name': 'Asia'}}, {'code': 'SA', 'name': 'Saudi Arabia', 'continent': {'name': 'Asia'}}, {'code': 'SG', 'name': 'Singapore', 'continent': {'name': 'Asia'}}, {'code': 'SY', 'name': 'Syria', 'continent': {'name': 'Asia'}}, {'code': 'TH', 'name': 'Thailand', 'continent': {'name': 'Asia'}}, {'code': 'TJ', 'name': 'Tajikistan', 'continent': {'name': 'Asia'}}, {'code': 'TM', 'name': 'Turkmenistan', 'continent': {'name': 'Asia'}}, {'code': 'TR', 'name': 'Turkey', 'continent': {'name': 'Asia'}}, {'code': 'TW', 'name': 'Taiwan', 'continent': {'name': 'Asia'}}, {'code': 'UZ', 'name': 'Uzbekistan', 'continent': {'name': 'Asia'}}, {'code': 'VN', 'name': 'Vietnam', 'continent': {'name': 'Asia'}}, {'code': 'YE', 'name': 'Yemen', 'continent': {'name': 'Asia'}}]}"^^xsd:string ;
+    ex:userQuery "show me all asian countries"^^xsd:string .
+
 ex:query_5726492494555873987 a ex:Query ;
     ex:graphqlQuery """\r
         {\r
@@ -452,6 +635,19 @@ ex:query_6694522014296551309 a ex:Query ;
     ex:queryID "ab89e9c4-cf41-4b63-af4a-6323950b47a1"^^xsd:string ;
     ex:response "{'data': {'country': {'name': 'France', 'capital': 'Paris', 'currency': 'EUR', 'languages': [{'name': 'French'}]}}}"^^xsd:string ;
     ex:userQuery "france"^^xsd:string .
+
+ex:query_6841977287494816351 a ex:Query ;
+    ex:graphqlQuery """
+            {
+              astronauts {
+                name
+                agency
+              }
+            }
+            """^^xsd:string ;
+    ex:queryID "ad2eee41-4ab4-4559-b7dd-42c921579e3a"^^xsd:string ;
+    ex:response "{'errors': [{'message': 'Cannot query field \"astronauts\" on type \"Query\".', 'locations': [{'line': 3, 'column': 15}], 'extensions': {'code': 'GRAPHQL_VALIDATION_FAILED'}}]}"^^xsd:string ;
+    ex:userQuery "Which space agencies have sent astronauts with SpaceX?"^^xsd:string .
 
 ex:query_6872103007683624384 a ex:Query ;
     ex:graphqlQuery """
@@ -566,6 +762,20 @@ ex:query_7870529192524200240 a ex:Query ;
     ex:queryID "bd32f4ca-1133-4dec-8912-da1a6c1f57e4"^^xsd:string ;
     ex:response "{'countries': []}"^^xsd:string ;
     ex:userQuery "all countries with euro as currency"^^xsd:string .
+
+ex:query_7951802721755009859 a ex:Query ;
+    ex:graphqlQuery """
+            {
+              rockets {
+                id
+                name
+                description
+              }
+            }
+            """^^xsd:string ;
+    ex:queryID "8ad61eac-2d28-4dc7-a637-9fbe019dba19"^^xsd:string ;
+    ex:response "{'data': {'rockets': [{'id': '5e9d0d95eda69955f709d1eb', 'name': 'Falcon 1', 'description': 'The Falcon 1 was an expendable launch system privately developed and manufactured by SpaceX during 2006-2009. On 28 September 2008, Falcon 1 became the first privately-developed liquid-fuel launch vehicle to go into orbit around the Earth.'}, {'id': '5e9d0d95eda69973a809d1ec', 'name': 'Falcon 9', 'description': 'Falcon 9 is a two-stage rocket designed and manufactured by SpaceX for the reliable and safe transport of satellites and the Dragon spacecraft into orbit.'}, {'id': '5e9d0d95eda69974db09d1ed', 'name': 'Falcon Heavy', 'description': 'With the ability to lift into orbit over 54 metric tons (119,000 lb)--a mass equivalent to a 737 jetliner loaded with passengers, crew, luggage and fuel--Falcon Heavy can lift more than twice the payload of the next closest operational vehicle, the Delta IV Heavy, at one-third the cost.'}, {'id': '5e9d0d96eda699382d09d1ee', 'name': 'Starship', 'description': 'Starship and Super Heavy Rocket represent a fully reusable transportation system designed to service all Earth orbit needs as well as the Moon and Mars. This two-stage vehicle — composed of the Super Heavy rocket (booster) and Starship (ship) — will eventually replace Falcon 9, Falcon Heavy and Dragon.'}]}}"^^xsd:string ;
+    ex:userQuery "What is the description of Starship?"^^xsd:string .
 
 ex:query_8993004940197100805 a ex:Query ;
     ex:graphqlQuery """

@@ -57,11 +57,12 @@ export default function ResultsPage() {
       return <p className="loading-message">Loading results...</p>;
     }
 
-    if (
-      results.response &&
-      results.response.data &&
-      results.response.data.country
-    ) {
+    if (!results.response || !results.response.data) {
+      return <p className="error-message">No results found.</p>;
+    }
+
+    // Handling Countries API
+    if (results.response.data.country) {
       const country = results.response.data.country;
       return (
         <div className="item">
@@ -88,11 +89,7 @@ export default function ResultsPage() {
       );
     }
 
-    if (
-      results.response &&
-      results.response.countries &&
-      results.response.countries.length > 0
-    ) {
+    if (results.response.countries && results.response.countries.length > 0) {
       return (
         <div className="items-container">
           {results.response.countries.map((country) => (
@@ -115,7 +112,75 @@ export default function ResultsPage() {
       );
     }
 
-    return <p className="error-message">No results found for the country.</p>;
+    // Handling SpaceX API
+    if (
+      results.response.data.rockets &&
+      results.response.data.rockets.length > 0
+    ) {
+      return (
+        <div className="items-container">
+          {results.response.data.rockets.map((rocket) => (
+            <div className="item" key={rocket.id}>
+              <h2 className="item-name">{rocket.name}</h2>
+              <p className="item-details">
+                <strong>Description:</strong> {rocket.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    if (
+      results.response.data.launches &&
+      results.response.data.launches.length > 0
+    ) {
+      return (
+        <div className="items-container">
+          {results.response.data.launches.map((launch, index) => (
+            <div className="item" key={index}>
+              <h2 className="item-name">{launch.mission_name}</h2>
+              <p className="item-details">
+                <strong>Launch Date:</strong>{" "}
+                {new Date(launch.launch_date_utc).toLocaleString()}
+              </p>
+              <p className="item-details">
+                <strong>Rocket:</strong> {launch.rocket.rocket_name}
+              </p>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    // Handling SpaceX Missions
+    if (
+      results.response.data.missions &&
+      results.response.data.missions.length === 0
+    ) {
+      return <p className="error-message">No missions found.</p>;
+    }
+
+    // Handling SpaceX Missions (if there are missions)
+    if (
+      results.response.data.missions &&
+      results.response.data.missions.length > 0
+    ) {
+      return (
+        <div className="items-container">
+          {results.response.data.missions.map((mission) => (
+            <div className="item" key={mission.id}>
+              <h2 className="item-name">{mission.name}</h2>
+              <p className="item-details">
+                <strong>Description:</strong> {mission.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    return <p className="error-message">No SpaceX results found.</p>;
   };
 
   return (

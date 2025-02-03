@@ -58,6 +58,7 @@ function QueryPage() {
 
         {/* Language Selector */}
         <select
+          className="language-select"
           onChange={(e) => i18n.changeLanguage(e.target.value)}
           value={language}
         >
