@@ -308,7 +308,7 @@ Check out our live demo to see GAIT in action: [GAIT Demo](https://drive.google.
 
 ### **Additional Resources**
 
-- [API Documentation](https://github.com/delia1205/-WADe-Project/documentation/tehnical-report.html)
+- [API Documentation](https://github.com/delia1205/-WADe-Project/blob/main/documentation/tehnical-report.html)
 
 <!-- Roadmap -->
 
