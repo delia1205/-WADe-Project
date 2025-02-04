@@ -242,7 +242,6 @@ export default function ResultsPage() {
           >
             {exporting ? "Exporting..." : "Export as JSON"}
           </button>
-          <button className="results-button">Feedback</button>
         </footer>
       </div>
     </>

@@ -1,12 +1,13 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { UserContext } from "../hooks/context";
 import "../styles/query.css";
 
 function QueryPage() {
   const { t, i18n } = useTranslation();
-  const [input, setInput] = useState("");
+  const location = useLocation();
+  const [input, setInput] = useState(location.state?.oldPrompt || "");
   const [language, setLanguage] = useState(i18n.language);
   const navigate = useNavigate();
   const { userData } = useContext(UserContext);

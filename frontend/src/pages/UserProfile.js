@@ -9,83 +9,44 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
+import axios from "axios";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import "../styles/profile.css";
 
 export default function UserProfile() {
-  // MOCKUP DATA - for user's history
-  const [queryHistory, setQueryHistory] = useState([
-    {
-      id: 1,
-      input: "Latest SpaceX launches",
-      graphqlQuery: "{ launches { mission_name } }",
-      date: "2025-01-01",
-    },
-    {
-      id: 2,
-      input: "Top GitHub repositories",
-      graphqlQuery: "{ repositories { name stars } }",
-      date: "2025-01-02",
-    },
-  ]);
-
-  const [savedResults, setSavedResults] = useState([
-    {
-      id: 1,
-      title: "SpaceX Launches",
-      preview: "Falcon 9, Falcon Heavy...",
-      link: "/results/spacex",
-    },
-    {
-      id: 2,
-      title: "Top GitHub Repos",
-      preview: "React, Vue, Angular...",
-      link: "/results/github",
-    },
-  ]);
-
-  const clearQueryHistory = () => setQueryHistory([]);
-  const clearSavedResults = () => setSavedResults([]);
-  // END OF MOCKUP
-
-  const [savedQueryIds, setSavedQueryIds] = useState(new Set());
-
-  const toggleSaveQuery = (query) => {
-    setSavedQueryIds((prev) => {
-      const newSaved = new Set(prev);
-      if (newSaved.has(query.id)) {
-        newSaved.delete(query.id);
-        setSavedResults((prevResults) =>
-          prevResults.filter((r) => r.id !== query.id)
-        );
-      } else {
-        newSaved.add(query.id);
-        setSavedResults((prevResults) => [
-          ...prevResults,
-          {
-            id: query.id,
-            title: query.input,
-            preview: query.graphqlQuery,
-            link: `/results/${query.id}`,
-          },
-        ]);
-      }
-      return newSaved;
-    });
-  };
-  const [languagePreference, setLanguagePreference] = useState(
-    localStorage.getItem("langPref")
-  );
-
+  const [queryHistory, setQueryHistory] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("Select Language");
-
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [imageURL, setImageURL] = useState(null);
   const [uploadError, setUploadError] = useState("");
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
   const { userData, logout } = useAuth();
+
+  useEffect(() => {
+    if (userData?._id) {
+      axios
+        .get(`http://localhost:5000/query-history/${userData._id}`)
+        .then((response) => {
+          setQueryHistory(response.data.query_history);
+        })
+        .catch((err) => {
+          console.error("Error fetching query history:", err);
+          setError("Error fetching query history.");
+        });
+    }
+    if (selectedPhoto) {
+      uploadImage();
+    }
+  }, [userData?._id, selectedPhoto]);
+
+  const clearQueryHistory = () => setQueryHistory([]);
+
+  const [languagePreference, setLanguagePreference] = useState(
+    localStorage.getItem("langPref")
+  );
 
   const handleProfilePicChange = (e) => {
     const file = e.target.files[0];
@@ -121,12 +82,6 @@ export default function UserProfile() {
       }
     );
   };
-
-  useEffect(() => {
-    if (selectedPhoto) {
-      uploadImage();
-    }
-  }, [selectedPhoto]);
 
   const handleProfilePicUpdate = async () => {
     if (imageURL && userData?._id) {
@@ -236,6 +191,59 @@ export default function UserProfile() {
     }
   };
 
+  const fetchAndDownload = async (format) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/query-history/${userData._id}`
+      );
+      const data = await response.json();
+
+      if (!data || !data.query_history) {
+        alert("No query history found.");
+        return;
+      }
+
+      if (format === "csv") {
+        downloadCSV(data.query_history);
+      } else if (format === "json") {
+        downloadJSON(data.query_history);
+      }
+    } catch (error) {
+      console.error("Error fetching query history:", error);
+    }
+  };
+
+  const downloadCSV = (data) => {
+    const csvContent = [
+      ["Query ID", "User Query", "GraphQL Query", "Response"],
+      ...data.map((row) => [
+        `"${row.queryID}"`,
+        `"${row.userQuery.replace(/"/g, '""')}"`,
+        `"${row.graphqlQuery.replace(/"/g, '""').replace(/\n/g, " ")}"`,
+        `"${row.response.replace(/"/g, '""').replace(/\n/g, " ")}"`,
+      ]),
+    ]
+      .map((e) => e.join(","))
+      .join("\n");
+
+    triggerDownload(csvContent, "query_history.csv", "text/csv");
+  };
+
+  const downloadJSON = (data) => {
+    const jsonString = JSON.stringify(data, null, 2);
+    triggerDownload(jsonString, "query_history.json", "application/json");
+  };
+
+  const triggerDownload = (content, filename, mimeType) => {
+    const blob = new Blob([content], { type: mimeType });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   if (!userData) {
     return <div>Loading...</div>;
   }
@@ -267,17 +275,34 @@ export default function UserProfile() {
           <section className="query-history">
             <h3 className="history-title">Query History</h3>
             <div className="history-card">
-              {queryHistory.length > 0 ? (
+              {queryHistory && queryHistory.length > 0 ? (
                 <ul>
                   {queryHistory.map((query) => (
-                    <li key={query.id} className="history-items">
-                      <p className="item-input">{query.input}</p>
+                    <li key={query.queryID} className="history-items">
+                      <p className="item-input">
+                        Your prompt: {query.userQuery}
+                      </p>
                       <p className="item-graph">
                         GraphQL: {query.graphqlQuery}
                       </p>
-                      <p className="item-query-date">Date: {query.date}</p>
+                      <p className="item-query-date">
+                        <a
+                          href={"http://localhost:5001/query/" + query.queryID}
+                        >
+                          Shareable link for this query and response
+                        </a>
+                      </p>
                       <div className="history-item-buttons">
-                        <button className="item-button">Re-run</button>
+                        <button
+                          className="item-button"
+                          onClick={() =>
+                            navigate("/query", {
+                              state: { oldPrompt: query.userQuery },
+                            })
+                          }
+                        >
+                          Re-run
+                        </button>
                         <button
                           className="item-button"
                           onClick={() =>
@@ -287,18 +312,6 @@ export default function UserProfile() {
                           }
                         >
                           Delete
-                        </button>
-                        <button
-                          className="item-button save-button"
-                          onClick={() => toggleSaveQuery(query)}
-                          disabled={savedQueryIds.has(query.id)}
-                        >
-                          {savedQueryIds.has(query.id) ? (
-                            <FaBookmark style={{ marginRight: "8px" }} />
-                          ) : (
-                            <FaRegBookmark style={{ marginRight: "8px" }} />
-                          )}
-                          {savedQueryIds.has(query.id) ? "Saved" : "Save"}
                         </button>
                       </div>
                     </li>
@@ -314,47 +327,6 @@ export default function UserProfile() {
                 onClick={clearQueryHistory}
               >
                 Clear All History
-              </button>
-            </div>
-          </section>
-
-          <section className="bookmarks">
-            <h3 className="bookmarks-title">Saved Results</h3>
-            <div className="bookmarks-card">
-              {savedResults.length > 0 ? (
-                <ul>
-                  {savedResults.map((result) => (
-                    <li key={result.id} className="bookmarks-list">
-                      <p className="bookmark-title">{result.title}</p>
-                      <p className="bookmark-preview">{result.preview}</p>
-                      <div className="bookmark-buttons">
-                        <button
-                          className="bookmark-button"
-                          onClick={() => (window.location.href = result.link)}
-                        >
-                          View More
-                        </button>
-                        <button
-                          className="bookmark-button"
-                          onClick={() =>
-                            setSavedResults(
-                              savedResults.filter((r) => r.id !== result.id)
-                            )
-                          }
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="bookmarks-unavailable">
-                  No saved results available.
-                </p>
-              )}
-              <button className="clear-boomarks" onClick={clearSavedResults}>
-                Clear All Saved Results
               </button>
             </div>
           </section>
@@ -459,11 +431,17 @@ export default function UserProfile() {
           <section className="export">
             <h3 className="export-title">Export Options</h3>
             <div className="export-card">
-              <button className="export-button">
+              <button
+                className="export-button"
+                onClick={() => fetchAndDownload("csv")}
+              >
                 Download Query History (CSV)
               </button>
-              <button className="export-button">
-                Export Saved Results (PDF)
+              <button
+                className="export-button"
+                onClick={() => fetchAndDownload("json")}
+              >
+                Download Query History (JSON)
               </button>
             </div>
           </section>

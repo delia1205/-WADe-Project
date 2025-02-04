@@ -189,7 +189,7 @@ def process_query(request: QueryRequest):
 
     # Store query and result in RDF
     query_uri = rdf_store.add_query_result(user_query, gql_query, str(results), user_id=user_id)
-    rdf_store.save_to_mongo()
+    rdf_store.save_to_mongo(query_uri, user_id)
 
     return {"query": gql_query, "response": results, "link": query_uri}
 
@@ -219,6 +219,18 @@ async def export_results(request: Request):
         media_type=mimetype, 
         headers={"Content-Disposition": f"attachment; filename=exported_results{extension}"}
     )
+
+
+@app.get("/query-history/{user_id}")
+def get_query_history(user_id: str):
+    """Fetches the query history for a specific user based on user_id."""
+    
+    query_history = rdf_store.get_query_history(user_id=user_id)
+    
+    if not query_history:
+        raise HTTPException(status_code=404, detail="No query history found for the given user.")
+    
+    return query_history
 
 
 # Start FastAPI Server

@@ -33,64 +33,30 @@ def get_rdf():
 
     return Response(rdf_content, mimetype=mimetype)
 
-@app.route('/query/<query_id>', methods=['GET'])
-def get_query_by_id(query_id):
-    """Retrieve a stored query by its queryID."""
-    sparql_query = f"""
-    PREFIX ex: <http://example.org/queries#>
-    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-    SELECT ?userQuery ?graphqlQuery ?response
-    WHERE {{
-      ?query ex:queryID "{query_id}"^^xsd:string ;
-             ex:userQuery ?userQuery ;
-             ex:graphqlQuery ?graphqlQuery ;
-             ex:response ?response .
-    }}
-    """
-    print(sparql_query)
-    results = rdf_store.execute_sparql_query(sparql_query)
+@app.route('/query/<query_uri>', methods=['GET'])
+def get_query_by_uri(query_uri):
+    """Retrieve a stored query by its query_uri from MongoDB."""
 
-    if not results:
-        return jsonify({"error": "Query ID not found"}), 404
+    result = rdf_store.collection.find_one({"query_uri": query_uri}, {"_id": 0, "user_id": 0})  # Exclude MongoDB `_id` field
 
-    return jsonify([
-        {
-            "queryID": query_id,
-            "userQuery": str(row["userQuery"]),
-            "graphqlQuery": str(row["graphqlQuery"]),
-            "response": str(row["response"]),
-        }
-        for row in results
-    ])
+    if not result:
+        return jsonify({"error": "Query URI not found"}), 404
+
+    return jsonify(result)
+
 
 @app.route('/queries', methods=['GET'])
 def get_queries():
-    """Retrieve all stored query IDs and their GraphQL queries."""
+    """Retrieve all stored query URIs from MongoDB."""
 
-    sparql_query = """
-    PREFIX ex: <http://example.org/queries#>
-    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-
-    SELECT ?queryID
-    WHERE {
-        ?query ex:queryID ?queryID .
-    }
-    """
-
-
-    print(sparql_query)  #  Debugging: Check the generated SPARQL query
-    results = rdf_store.execute_sparql_query(sparql_query)
-    print(results)
+    results = list(rdf_store.collection.find({}, {"query_uri": 1, "_id": 0}))  # Fetch all query URIs
 
     if not results:
-        return jsonify({"error": "No query IDs found"}), 404  #  More accurate error message
+        return jsonify({"error": "No query URIs found"}), 404
 
     return jsonify([
-        {
-            "queryID": "http://localhost:5001/query/" + str(row["queryID"]),
-        }
-        for row in results
+        {"queryURI": f"http://localhost:5001/query/{row['query_uri']}"} for row in results if "query_uri" in row
     ])
 
 
