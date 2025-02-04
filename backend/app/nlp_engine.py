@@ -1,3 +1,4 @@
+# Example for loading a larger spaCy model
 import spacy
 import pycountry
 from langdetect import detect
@@ -23,7 +24,7 @@ class NLPProcessor:
         # Translate to English if necessary
         return self.translator.translate(text, src=detected_lang, dest="en").text if detected_lang != "en" else text
 
-    def process_query(self, text):
+    def process_countries_query(self, text):
         """Extract country names, regions, and relevant entities for query processing."""
         translated_text = self.get_english_text(text)
         doc = self.nlp(translated_text.lower())
@@ -51,3 +52,27 @@ class NLPProcessor:
             return {"api": "countries", "type": "currency", "entities": detected_currencies}
 
         return {"api": "countries", "type": "general", "entities": []} 
+    
+    def process_spacex_query(self, text):
+        """Extract SpaceX-related entities for API query processing."""
+        translated_text = self.get_english_text(text)
+        doc = self.nlp(translated_text.lower())
+
+        rocket_keywords = ["falcon 9", "falcon heavy", "starship", "dragon", "falcon"]
+        launch_keywords = ["latest launch", "next launch", "past launches", "upcoming launch"]
+        mission_keywords = ["crew mission", "cargo mission", "starlink", "demo"]
+
+        detected_rockets = [word for word in rocket_keywords if word in translated_text.lower()]
+        detected_launches = [word for word in launch_keywords if word in translated_text.lower()]
+        detected_missions = [word for word in mission_keywords if word in translated_text.lower()]
+
+        print(f"Detected text: {translated_text}")
+        
+        if detected_rockets:
+            return {"api": "spacex", "type": "rocket", "entities": detected_rockets}
+        if detected_launches:
+            return {"api": "spacex", "type": "launch", "entities": detected_launches}
+        if detected_missions:
+            return {"api": "spacex", "type": "mission", "entities": detected_missions}
+        
+        return {"api": "spacex", "type": "general", "entities": []}

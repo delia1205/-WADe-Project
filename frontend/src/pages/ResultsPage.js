@@ -58,41 +58,14 @@ export default function ResultsPage() {
     }
 
     if (
-      results.response &&
-      results.response.data &&
-      results.response.data.country
+      !results.response ||
+      (!results.response.data && !results.response.countries)
     ) {
-      const country = results.response.data.country;
-      return (
-        <div className="item">
-          <h2 className="item-name">{country.name}</h2>
-          <p className="item-details">
-            <strong>Capital:</strong> {country.capital}
-          </p>
-          <p className="item-details">
-            <strong>Currency:</strong> {country.currency}
-          </p>
-          <p className="item-details">
-            <strong>Languages:</strong>{" "}
-            {country.languages.map((lang) => lang.name).join(", ")}
-          </p>
-          <a
-            href={`https://www.google.com/maps/search/${country.name}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="item-link"
-          >
-            Learn More
-          </a>
-        </div>
-      );
+      return <p className="error-message">No results found.</p>;
     }
 
-    if (
-      results.response &&
-      results.response.countries &&
-      results.response.countries.length > 0
-    ) {
+    // Handling other response formats (e.g., countries in an array)
+    if (results.response.countries && results.response.countries.length > 0) {
       return (
         <div className="items-container">
           {results.response.countries.map((country) => (
@@ -115,7 +88,100 @@ export default function ResultsPage() {
       );
     }
 
-    return <p className="error-message">No results found for the country.</p>;
+    // Handling SpaceX API (rockets, launches, missions)
+    if (
+      results.response.data.rockets &&
+      results.response.data.rockets.length > 0
+    ) {
+      return (
+        <div className="items-container">
+          {results.response.data.rockets.map((rocket) => (
+            <div className="item" key={rocket.id}>
+              <h2 className="item-name">{rocket.name}</h2>
+              <p className="item-details">
+                <strong>Description:</strong> {rocket.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    if (
+      results.response.data.launches &&
+      results.response.data.launches.length > 0
+    ) {
+      return (
+        <div className="items-container">
+          {results.response.data.launches.map((launch, index) => (
+            <div className="item" key={index}>
+              <h2 className="item-name">{launch.mission_name}</h2>
+              <p className="item-details">
+                <strong>Launch Date:</strong>{" "}
+                {new Date(launch.launch_date_utc).toLocaleString()}
+              </p>
+              <p className="item-details">
+                <strong>Rocket:</strong> {launch.rocket.rocket_name}
+              </p>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    if (
+      results.response.data.missions &&
+      results.response.data.missions.length > 0
+    ) {
+      return (
+        <div className="items-container">
+          {results.response.data.missions.map((mission) => (
+            <div className="item" key={mission.id}>
+              <h2 className="item-name">{mission.name}</h2>
+              <p className="item-details">
+                <strong>Description:</strong> {mission.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    if (results.response.data && typeof results.response.data === "object") {
+      const countries = Object.values(results.response.data);
+
+      if (countries.length > 0) {
+        return (
+          <div className="items-container">
+            {countries.map((country, index) => (
+              <div className="item" key={index}>
+                <h2 className="item-name">{country.name}</h2>
+                <p className="item-details">
+                  <strong>Capital:</strong> {country.capital}
+                </p>
+                <p className="item-details">
+                  <strong>Currency:</strong> {country.currency}
+                </p>
+                <p className="item-details">
+                  <strong>Languages:</strong>{" "}
+                  {country.languages.map((lang) => lang.name).join(", ")}
+                </p>
+                <a
+                  href={`https://www.google.com/maps/search/${country.name}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="item-link"
+                >
+                  Learn More
+                </a>
+              </div>
+            ))}
+          </div>
+        );
+      }
+    }
+
+    return <p className="error-message">No relevant results found.</p>;
   };
 
   return (
@@ -138,7 +204,9 @@ export default function ResultsPage() {
           <h3 className="results-query">
             The shareable link for this query and results:
           </h3>
-          <div className="results-query-schema">{query_uri}</div>
+          <div className="results-query-schema">
+            http://localhost:5001/query/{query_uri}
+          </div>
         </section>
 
         <main className="results-main">
@@ -174,7 +242,6 @@ export default function ResultsPage() {
           >
             {exporting ? "Exporting..." : "Export as JSON"}
           </button>
-          <button className="results-button">Feedback</button>
         </footer>
       </div>
     </>

@@ -1,13 +1,16 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { UserContext } from "../hooks/context";
 import "../styles/query.css";
 
 function QueryPage() {
   const { t, i18n } = useTranslation();
-  const [input, setInput] = useState("");
+  const location = useLocation();
+  const [input, setInput] = useState(location.state?.oldPrompt || "");
   const [language, setLanguage] = useState(i18n.language);
   const navigate = useNavigate();
+  const { userData } = useContext(UserContext);
 
   const handleInputChange = (e) => setInput(e.target.value);
 
@@ -24,7 +27,7 @@ function QueryPage() {
       const response = await fetch("http://localhost:5000/query", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_input: input }),
+        body: JSON.stringify({ user_input: input, user_id: userData._id }),
       });
 
       if (!response.ok) throw new Error(`Server error: ${response.status}`);
@@ -58,6 +61,7 @@ function QueryPage() {
 
         {/* Language Selector */}
         <select
+          className="language-select"
           onChange={(e) => i18n.changeLanguage(e.target.value)}
           value={language}
         >

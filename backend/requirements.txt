@@ -7,3 +7,4 @@ uvicorn
 transformers
 pycountry
 flask_cors
+pymongo
