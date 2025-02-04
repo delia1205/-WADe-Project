@@ -15,10 +15,27 @@ function QueryPage() {
   const handleInputChange = (e) => setInput(e.target.value);
 
   const handleVoiceInput = () => {
-    const recognition = new window.webkitSpeechRecognition();
+    if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
+      alert("Speech recognition is not supported in this browser.");
+      return;
+    }
+
+    const recognition = new (window.SpeechRecognition ||
+      window.webkitSpeechRecognition)();
+
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = i18n.language;
+
     recognition.onresult = (event) => {
-      setInput(event.results[0][0].transcript);
+      const transcript = event.results[0][0].transcript;
+      setInput(transcript);
     };
+
+    recognition.onerror = (event) => {
+      console.error("Speech recognition error:", event.error);
+    };
+
     recognition.start();
   };
 
@@ -33,7 +50,6 @@ function QueryPage() {
       if (!response.ok) throw new Error(`Server error: ${response.status}`);
 
       const data = await response.json();
-      console.log("data:", data);
       navigate("/result", {
         state: {
           results: data,
@@ -45,6 +61,11 @@ function QueryPage() {
     } catch (error) {
       console.error("Error fetching query results:", error);
     }
+  };
+
+  const handleLanguageChange = (e) => {
+    const newLanguage = e.target.value;
+    i18n.changeLanguage(newLanguage);
   };
 
   return (
@@ -62,8 +83,8 @@ function QueryPage() {
         {/* Language Selector */}
         <select
           className="language-select"
-          onChange={(e) => i18n.changeLanguage(e.target.value)}
-          value={language}
+          onChange={handleLanguageChange}
+          value={i18n.language}
         >
           <option value="en">🇬🇧 English</option>
           <option value="ro">🇷🇴 Română</option>

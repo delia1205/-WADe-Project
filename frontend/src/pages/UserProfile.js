@@ -93,7 +93,6 @@ export default function UserProfile() {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(formData),
-            credentials: "include",
           }
         );
 
@@ -167,7 +166,6 @@ export default function UserProfile() {
             password: passwords.newPassword,
             token: userData.token,
           }),
-          credentials: "include",
         }
       );
 
