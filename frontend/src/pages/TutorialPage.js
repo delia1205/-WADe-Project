@@ -18,7 +18,7 @@ export default function TutorialPage() {
           everyone!
         </p>
         <div className="video">
-          <ReactPlayer url="https://youtu.be/dQw4w9WgXcQ?si=63wRTWRzwWsd7SFn" />
+          <ReactPlayer url="https://github.com/delia1205/-WADe-Project/demo/tutorial.mp4" />
         </div>
       </div>
     </>
