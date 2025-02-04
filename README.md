@@ -304,7 +304,7 @@ Here are some example queries you can try:
 
 ### **Demo**
 
-Check out our live demo to see GAIT in action: [GAIT Demo](https://github.com/delia1205/-WADe-Project/demo/tutorial.mp4)
+Check out our live demo to see GAIT in action: [GAIT Demo](https://drive.google.com/file/d/19s_nOH4bJLuzCdNYW4OfPs-FnUKwmwkz/view?usp=sharing)
 
 ### **Additional Resources**
 
