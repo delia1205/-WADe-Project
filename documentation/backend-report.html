@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" prefix="schema: http://schema.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GAIT: GraphQL API Interactive Tool</title>
+    <link rel="stylesheet" href="scholarly.min.css" />
+  </head>
+  <body>
+    <article typeof="schema:ScholarlyArticle">
+      <header>
+        <h1>GAIT: GraphQL API Interactive Tool</h1>
+        <p><strong>Authors:</strong> Ungureanu Delia-Elena, Untu George-Adrian</p>
+        <p><strong>Affiliation:</strong> A&D Solutions</p>
+        <p><strong>Date:</strong> 04.02.2025</p>
+        <p>
+          <strong>Abstract:</strong> This report presents GAIT, a web-based tool
+          that enables users to interact with GraphQL APIs using natural
+          language queries. GAIT simplifies API querying by supporting text and
+          voice input, multi-lingual capabilities, and seamless API integration.
+        </p>
+      </header>
+
+      <nav role="contentinfo">
+        <h2>Table of Contents</h2>
+        <ol role="directory">
+          <li><a href="#introduction">1. Introduction</a></li>
+          <li><a href="#related-work">2. Related Work</a></li>
+          <li><a href="#system-architecture">3. System Architecture</a></li>
+          <li><a href="#backend-query-services">4. Backend Query Services</a></li>
+          <li><a href="#implementation">5. Implementation</a></li>
+          <li><a href="#testing-evaluation">6. Testing & Evaluation</a></li>
+          <li><a href="#challenges-solutions">7. Challenges & Solutions</a></li>
+          <li>
+            <a href="#future-work-conclusion">8. Future Work & Conclusion</a>
+          </li>
+          <li><a href="#references">9. References</a></li>
+        </ol>
+      </nav>
+
+      <section typeof="schema:Introduction">
+        <h2 id="introduction">1. Introduction</h2>
+        <p>
+          GAIT (GraphQL API Interactive Tool) is designed to bridge the gap
+          between users and complex GraphQL APIs by allowing interaction through
+          natural language constructs. The tool leverages NLP, voice
+          recognition, and real-time API introspection.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="related-work">2. Related Work</h2>
+        <p>
+          Several tools and platforms exist for interacting with GraphQL APIs, but they often require technical expertise. Notable related work includes:
+        </p>
+        <ul>
+          <li><strong>GraphiQL:</strong> A web-based interactive GraphQL IDE allowing developers to test and validate queries.</li>
+          <li><strong>ColloQL:</strong> A system enabling natural language-based SQL queries, which serves as inspiration for GAIT's query processing pipeline.</li>
+          <li><strong>SPARQL Query Builders:</strong> Various RDF-based query builders exist, but few integrate real-time NLP processing for dynamic query generation.</li>
+          <li><strong>Voice-Driven Assistants:</strong> Platforms such as Google Assistant and Alexa provide voice-enabled querying, but their integration with GraphQL is minimal.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="system-architecture">3. System Architecture</h2>
+        <p>GAIT follows a service-oriented architecture consisting of:</p>
+        <ul>
+          <li>
+            <strong>Frontend:</strong> A React-based SPA for UI interaction.
+          </li>
+          <li>
+            <strong>Backend:</strong> A FastAPI service handling query processing.
+          </li>
+          <p>
+            The backend of GAIT is built on FastAPI, leveraging modern Python-based web frameworks to provide a high-performance API service. It consists of multiple components:
+          </p>
+          <ul>
+            <li><strong>GraphQL Query Engine:</strong> Processes natural language inputs, maps them to GraphQL queries, and executes them against various APIs.</li>
+            <li><strong>SPARQL Query Engine:</strong> Stores executed queries in RDF format and allows retrieval via SPARQL queries.</li>
+            <li><strong>NLP Processing:</strong> Uses SpaCy and deep-translation to convert user inputs into structured queries.</li>
+            <li><strong>Data Persistence:</strong> Queries and responses are stored in RDF format to ensure semantic interoperability.</li>
+          </ul>
+          <li>
+            <strong>APIs:</strong> Google Speech-to-Text, Google Translate and
+            GraphQL endpoints.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="backend-query-services">4. Backend Query Services</h2>
+        <p>
+          The backend services of GAIT handle various aspects of GraphQL query
+          processing, SPARQL data management, and multilingual support. It is designed 
+          to efficiently manage and process user queries, convert natural language into 
+          structured API requests, and store these interactions for future reference.
+        </p>
+        
+        <h3>4.1 GraphQL Query Processing</h3>
+        <p>
+          GAIT enables users to interact with multiple GraphQL APIs by converting
+          natural language queries into structured GraphQL requests. The
+          backend follows these steps:
+        </p>
+        <ul>
+          <li><strong>Query Interpretation:</strong> User input is processed using NLP models to extract key entities.</li>
+          <li><strong>API Mapping:</strong> The system identifies the relevant GraphQL API based on extracted entities.</li>
+          <li><strong>Query Construction:</strong> Dynamic GraphQL queries are generated based on user intent.</li>
+          <li><strong>Execution & Response:</strong> Queries are executed, and the JSON response is structured for readability.</li>
+        </ul>
+        <p>
+          This approach allows seamless interaction with multiple GraphQL APIs,
+          providing users with accurate and real-time results.
+        </p>
+    
+        <h3>4.2 SPARQL Query Storage</h3>
+        <p>
+          GAIT incorporates an RDF-based query storage system using SPARQL, which allows 
+          structured representation of user queries. The benefits of this approach include:
+        </p>
+        <ul>
+          <li>Permanent storage of user queries with metadata.</li>
+          <li>Efficient retrieval of past queries using SPARQL queries.</li>
+          <li>Integration with Linked Data applications for extended interoperability.</li>
+        </ul>
+        <p>
+          The system ensures that user interactions are logged in a format that supports
+          efficient querying and analysis of API usage trends.
+        </p>
+    
+        <h3>4.3 Multilingual Query Support</h3>
+        <p>
+          GAIT provides multilingual query support, making it accessible to users 
+          in different linguistic regions. This feature is implemented through:
+        </p>
+        <ul>
+          <li><strong>Language Detection:</strong> The backend automatically detects the language of the query using DeepL.</li>
+          <li><strong>Translation:</strong> If the detected language is not English, the query is translated into English before processing.</li>
+          <li><strong>Response Handling:</strong> Query results are translated back into the user’s preferred language.</li>
+        </ul>
+        <p>
+          Currently, GAIT partially supports Romanian, German, and English, with future plans to extend 
+          support for additional languages.
+        </p>
+    
+        <h3>4.4 Backend Infrastructure & Performance Optimization</h3>
+        <p>
+          GAIT’s backend is built on FastAPI, ensuring high-performance processing 
+          of API queries. Several optimizations have been implemented:
+        </p>
+        <ul>
+          <li><strong>Asynchronous Processing:</strong> FastAPI’s async capabilities allow non-blocking query execution.</li>
+          <li><strong>Caching:</strong> Frequently accessed API responses are cached to reduce redundant requests.</li>
+          <li><strong>Load Balancing:</strong> Requests are distributed efficiently to ensure system stability under high loads.</li>
+          <li><strong>Database Optimization:</strong> The RDF store is indexed to allow fast retrieval of stored queries.</li>
+        </ul>
+        <p>
+          These enhancements enable GAIT to handle a high volume of user interactions
+          with minimal response time.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="implementation">5. Implementation</h2>
+        <p>
+          The tool consists of a modular backend using FastAPI and GraphQL
+          processing via gql. The API integrator supports GraphQL, SPARQL, and
+          RDF query handling.
+        </p>
+        <p>
+            The backend services handle natural language query conversion, API interaction, and RDF storage. The key implementations include:
+        </p>
+        <ul>
+            <li><strong>Query Parsing:</strong> The NLP engine processes user queries, extracts entities, and maps them to GraphQL-compatible structures.</li>
+            <li><strong>GraphQL Execution:</strong> The parsed queries are sent to public GraphQL APIs (e.g., Country API, AniList API) using HTTP clients.</li>
+            <li><strong>SPARQL Query Storage:</strong> Every query and its response are stored in an RDF triple store, allowing structured queries via SPARQL.</li>
+            <li><strong>Multi-Language Support:</strong> Uses translation APIs to support multiple languages, dynamically translating queries to English.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="testing-evaluation">6. Testing & Evaluation</h2>
+        <p>
+            GAIT has undergone extensive unit and integration testing using
+            pytest. The results indicate high accuracy in query conversion and
+            reliable API interactions.
+        </p>
+        <p>
+          The backend has been tested rigorously using automated unit tests and integration tests.
+        </p>
+        <ul>
+          <li><strong>Unit Testing:</strong> Pytest-based tests cover query conversion, API interactions, and RDF storage validation.</li>
+          <li><strong>Integration Testing:</strong> Simulated requests are run against public GraphQL APIs to verify response consistency.</li>
+          <li><strong>Performance Testing:</strong> Query execution time is measured under different workloads to ensure scalability.</li>
+          <li><strong>SPARQL Query Validation:</strong> Tests ensure that stored RDF data is retrievable with accurate SPARQL queries.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="challenges-solutions">7. Challenges & Solutions</h2>
+        <p>
+          Key challenges include handling ambiguous user queries and ensuring
+          multilingual support. Solutions involve NLP enhancements and dynamic
+          query introspection.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="future-work-conclusion">8. Future Work & Conclusion</h2>
+        <p>
+          Future enhancements include expanding API support, optimizing NLP
+          models, and improving query validation mechanisms.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="references">9. References</h2>
+        <p>
+          <strong>Backend Development References:</strong>
+        </p>
+        <ul>
+          <li>Docker Documentation - <a href="https://docs.docker.com/">https://docs.docker.com/</a></li>
+          <li>FastAPI Documentation - <a href="https://fastapi.tiangolo.com/">https://fastapi.tiangolo.com/</a></li>
+          <li>GraphQL Documentation - <a href="https://graphql.org/learn/">https://graphql.org/learn/</a></li>
+          <li>SPARQL Query Language - <a href="https://www.w3.org/TR/sparql11-query/">https://www.w3.org/TR/sparql11-query/</a></li>
+          <li>React Documentation - <a href="https://reactjs.org/docs/getting-started.html">https://reactjs.org/docs/getting-started.html</a></li>
+          <li>RDFlib (RDF for Python) - <a href="https://rdflib.readthedocs.io/en/stable/">https://rdflib.readthedocs.io/en/stable/</a></li>
+          <li>PyTorch Official Site - <a href="https://pytorch.org/">https://pytorch.org/</a></li>
+          <li>Langdetect (Language Detection) - <a href="https://pypi.org/project/langdetect/">https://pypi.org/project/langdetect/</a></li>
+          <li>i18next (Internationalization in React) - <a href="https://www.i18next.com/">https://www.i18next.com/</a></li>
+          <li>Express.js (Node.js Framework) - <a href="https://expressjs.com/">https://expressjs.com/</a></li>
+          <li>Axios (HTTP Client for JavaScript) - <a href="https://axios-http.com/">https://axios-http.com/</a></li>
+          <li>Jest (Testing for JavaScript) - <a href="https://jestjs.io/">https://jestjs.io/</a></li>
+          <li>Pytest (Python Testing Framework) - <a href="https://pytest.org/">https://pytest.org/</a></li>
+          <li>RDFlib SPARQL Query Examples - <a href="https://rdflib.readthedocs.io/en/stable/intro_to_sparql.html">https://rdflib.readthedocs.io/en/stable/intro_to_sparql.html</a></li>
+          <li>DeepL Translator API - <a href="https://www.deepl.com/docs-api">https://www.deepl.com/docs-api</a></li>
+          <li>Google Cloud Natural Language API - <a href="https://cloud.google.com/natural-language">https://cloud.google.com/natural-language</a></li>
+          <li>OpenAI API (GPT Integration) - <a href="https://platform.openai.com/docs/">https://platform.openai.com/docs/</a></li>
+        </ul>
+      </section>
+    </article>
+  </body>
+</html>
+
