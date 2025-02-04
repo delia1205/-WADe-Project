@@ -10,6 +10,7 @@ import SignInPage from "./pages/SignInPage";
 import NotFound from "./pages/NotFound";
 import PrivateRoutes from "./components/PrivateRoutes";
 import ResultsPage from "./pages/ResultsPage";
+import "./i18n";
 
 function App() {
   return (
