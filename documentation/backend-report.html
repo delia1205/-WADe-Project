@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" prefix="schema: http://schema.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GAIT: GraphQL API Interactive Tool</title>
+    <link rel="stylesheet" href="scholarly.min.css" />
+  </head>
+  <body>
+    <article typeof="schema:ScholarlyArticle">
+      <header>
+        <h1>GAIT: GraphQL API Interactive Tool</h1>
+        <p><strong>Authors:</strong> Ungureanu Delia-Elena, Untu George-Adrian</p>
+        <p><strong>Affiliation:</strong> A&D Solutions</p>
+        <p><strong>Date:</strong> 04.02.2025</p>
+        <p>
+          <strong>Abstract:</strong> This report presents GAIT, a web-based tool
+          that enables users to interact with GraphQL APIs using natural
+          language queries. GAIT simplifies API querying by supporting text and
+          voice input, multi-lingual capabilities, and seamless API integration.
+        </p>
+      </header>
+
+      <nav role="contentinfo">
+        <h2>Table of Contents</h2>
+        <ol role="directory">
+          <li><a href="#introduction">1. Introduction</a></li>
+          <li><a href="#related-work">2. Related Work</a></li>
+          <li><a href="#system-architecture">3. System Architecture</a></li>
+          <li><a href="#backend-query-services">4. Backend Query Services</a></li>
+          <li><a href="#implementation">5. Implementation</a></li>
+          <li><a href="#testing-evaluation">6. Testing & Evaluation</a></li>
+          <li><a href="#challenges-solutions">7. Challenges & Solutions</a></li>
+          <li>
+            <a href="#future-work-conclusion">8. Future Work & Conclusion</a>
+          </li>
+          <li><a href="#references">9. References</a></li>
+        </ol>
+      </nav>
+
+      <section typeof="schema:Introduction">
+        <h2 id="introduction">1. Introduction</h2>
+        <p>
+          GAIT (GraphQL API Interactive Tool) is designed to bridge the gap
+          between users and complex GraphQL APIs by allowing interaction through
+          natural language constructs. The tool leverages NLP, voice
+          recognition, and real-time API introspection.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="related-work">2. Related Work</h2>
+        <p>
+          Several tools and platforms exist for interacting with GraphQL APIs, but they often require technical expertise. Notable related work includes:
+        </p>
+        <ul>
+          <li><strong>GraphiQL:</strong> A web-based interactive GraphQL IDE allowing developers to test and validate queries.</li>
+          <li><strong>ColloQL:</strong> A system enabling natural language-based SQL queries, which serves as inspiration for GAIT's query processing pipeline.</li>
+          <li><strong>SPARQL Query Builders:</strong> Various RDF-based query builders exist, but few integrate real-time NLP processing for dynamic query generation.</li>
+          <li><strong>Voice-Driven Assistants:</strong> Platforms such as Google Assistant and Alexa provide voice-enabled querying, but their integration with GraphQL is minimal.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="system-architecture">3. System Architecture</h2>
+        <p>GAIT follows a service-oriented architecture consisting of:</p>
+        <ul>
+          <li>
+            <strong>Frontend:</strong> A React-based SPA for UI interaction.
+          </li>
+          <li>
+            <strong>Backend:</strong> A FastAPI service handling query processing.
+          </li>
+          <p>
+            The backend of GAIT is built on FastAPI, leveraging modern Python-based web frameworks to provide a high-performance API service. It consists of multiple components:
+          </p>
+          <ul>
+            <li><strong>GraphQL Query Engine:</strong> Processes natural language inputs, maps them to GraphQL queries, and executes them against various APIs.</li>
+            <li><strong>SPARQL Query Engine:</strong> Stores executed queries in RDF format and allows retrieval via SPARQL queries.</li>
+            <li><strong>NLP Processing:</strong> Uses SpaCy and deep-translation to convert user inputs into structured queries.</li>
+            <li><strong>Data Persistence:</strong> Queries and responses are stored in RDF format to ensure semantic interoperability.</li>
+          </ul>
+          <li>
+            <strong>APIs:</strong> Google Speech-to-Text, Google Translate and
+            GraphQL endpoints.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="backend-query-services">4. Backend Query Services</h2>
+        <p>
+          The backend services of GAIT handle various aspects of GraphQL query
+          processing, SPARQL data management, and multilingual support. It is designed 
+          to efficiently manage and process user queries, convert natural language into 
+          structured API requests, and store these interactions for future reference.
+        </p>
+        
+        <h3>4.1 GraphQL Query Processing</h3>
+        <p>
+          GAIT enables users to interact with multiple GraphQL APIs by converting
+          natural language queries into structured GraphQL requests. The
+          backend follows these steps:
+        </p>
+        <ul>
+          <li><strong>Query Interpretation:</strong> User input is processed using NLP models to extract key entities.</li>
+          <li><strong>API Mapping:</strong> The system identifies the relevant GraphQL API based on extracted entities.</li>
+          <li><strong>Query Construction:</strong> Dynamic GraphQL queries are generated based on user intent.</li>
+          <li><strong>Execution & Response:</strong> Queries are executed, and the JSON response is structured for readability.</li>
+        </ul>
+        <p>
+          This approach allows seamless interaction with multiple GraphQL APIs,
+          providing users with accurate and real-time results.
+        </p>
+    
+        <h3>4.2 SPARQL Query Storage</h3>
+        <p>
+          GAIT incorporates an RDF-based query storage system using SPARQL, which allows 
+          structured representation of user queries. The benefits of this approach include:
+        </p>
+        <ul>
+          <li>Permanent storage of user queries with metadata.</li>
+          <li>Efficient retrieval of past queries using SPARQL queries.</li>
+          <li>Integration with Linked Data applications for extended interoperability.</li>
+        </ul>
+        <p>
+          The system ensures that user interactions are logged in a format that supports
+          efficient querying and analysis of API usage trends.
+        </p>
+    
+        <h3>4.3 Multilingual Query Support</h3>
+        <p>
+          GAIT provides multilingual query support, making it accessible to users 
+          in different linguistic regions. This feature is implemented through:
+        </p>
+        <ul>
+          <li><strong>Language Detection:</strong> The backend automatically detects the language of the query using DeepL.</li>
+          <li><strong>Translation:</strong> If the detected language is not English, the query is translated into English before processing.</li>
+          <li><strong>Response Handling:</strong> Query results are translated back into the user’s preferred language.</li>
+        </ul>
+        <p>
+          Currently, GAIT partially supports Romanian, German, and English, with future plans to extend 
+          support for additional languages.
+        </p>
+    
+        <h3>4.4 Backend Infrastructure & Performance Optimization</h3>
+        <p>
+          GAIT’s backend is built on FastAPI, ensuring high-performance processing 
+          of API queries. Several optimizations have been implemented:
+        </p>
+        <ul>
+          <li><strong>Asynchronous Processing:</strong> FastAPI’s async capabilities allow non-blocking query execution.</li>
+          <li><strong>Caching:</strong> Frequently accessed API responses are cached to reduce redundant requests.</li>
+          <li><strong>Load Balancing:</strong> Requests are distributed efficiently to ensure system stability under high loads.</li>
+          <li><strong>Database Optimization:</strong> The RDF store is indexed to allow fast retrieval of stored queries.</li>
+        </ul>
+        <p>
+          These enhancements enable GAIT to handle a high volume of user interactions
+          with minimal response time.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="implementation">5. Implementation</h2>
+        <p>
+          The tool consists of a modular backend using FastAPI and GraphQL
+          processing via gql. The API integrator supports GraphQL, SPARQL, and
+          RDF query handling.
+        </p>
+        <p>
+            The backend services handle natural language query conversion, API interaction, and RDF storage. The key implementations include:
+        </p>
+        <ul>
+            <li><strong>Query Parsing:</strong> The NLP engine processes user queries, extracts entities, and maps them to GraphQL-compatible structures.</li>
+            <li><strong>GraphQL Execution:</strong> The parsed queries are sent to public GraphQL APIs (e.g., Country API, AniList API) using HTTP clients.</li>
+            <li><strong>SPARQL Query Storage:</strong> Every query and its response are stored in an RDF triple store, allowing structured queries via SPARQL.</li>
+            <li><strong>Multi-Language Support:</strong> Uses translation APIs to support multiple languages, dynamically translating queries to English.</li>
+        </ul>
+        <p>The <strong>Query Generator API</strong> is responsible for generating GraphQL queries based on natural language input. It processes user queries, maps them to appropriate GraphQL APIs, and returns structured data.</p>
+<hr>
+<div class="markdown-heading"><h2 class="heading-element">📌 Features</h2><a id="user-content--features" class="anchor" aria-label="Permalink: 📌 Features" href="#-features"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<ul>
+<li>
+<strong>Natural Language Query Interpretation</strong>: Converts user input into GraphQL queries.</li>
+<li>
+<strong>Multilingual Support</strong>: Handles English, Romanian, and German.</li>
+<li>
+<strong>GraphQL Query Execution</strong>: Sends requests to GraphQL APIs and returns structured results.</li>
+<li>
+<strong>SPARQL Query Storage</strong>: Saves queries and responses in RDF format.</li>
+<li>
+<strong>API-agnostic Design</strong>: Supports multiple GraphQL endpoints.</li>
+</ul>
+<hr>
+<div class="markdown-heading"><h2 class="heading-element">🏗️ API Endpoints</h2><a id="user-content-️-api-endpoints" class="anchor" aria-label="Permalink: 🏗️ API Endpoints" href="#️-api-endpoints"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div class="markdown-heading"><h3 class="heading-element">🔹 Process Natural Language Query</h3><a id="user-content--process-natural-language-query" class="anchor" aria-label="Permalink: 🔹 Process Natural Language Query" href="#-process-natural-language-query"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p><strong>Endpoint:</strong> <code>POST /query</code></p>
+<p><strong>Description:</strong> Converts a natural language query into a GraphQL query and returns results.</p>
+<div class="markdown-heading"><h4 class="heading-element"><strong>Request Body:</strong></h4><a id="user-content-request-body" class="anchor" aria-label="Permalink: Request Body:" href="#request-body"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div class="highlight highlight-source-json notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="{
+  &quot;user_input&quot;: &quot;What is the capital of France?&quot;
+}"><pre>{
+  <span class="pl-ent">"user_input"</span>: <span class="pl-s"><span class="pl-pds">"</span>What is the capital of France?<span class="pl-pds">"</span></span>
+}</pre></div>
+<div class="markdown-heading"><h4 class="heading-element"><strong>Response:</strong></h4><a id="user-content-response" class="anchor" aria-label="Permalink: Response:" href="#response"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div class="highlight highlight-source-json notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="{
+  &quot;query&quot;: &quot;{ country(code: \&quot;FR\&quot;) { name capital currency languages { name } } }&quot;,
+  &quot;response&quot;: {
+    &quot;data&quot;: {
+      &quot;country&quot;: {
+        &quot;name&quot;: &quot;France&quot;,
+        &quot;capital&quot;: &quot;Paris&quot;,
+        &quot;currency&quot;: &quot;EUR&quot;,
+        &quot;languages&quot;: [{ &quot;name&quot;: &quot;French&quot; }]
+      }
+    }
+  },
+  &quot;link&quot;: &quot;http://localhost:5001/query/8a056e1a-3897-4440-a391-a3d291c1de8c&quot;
+}"><pre>{
+  <span class="pl-ent">"query"</span>: <span class="pl-s"><span class="pl-pds">"</span>{ country(code: <span class="pl-cce">\"</span>FR<span class="pl-cce">\"</span>) { name capital currency languages { name } } }<span class="pl-pds">"</span></span>,
+  <span class="pl-ent">"response"</span>: {
+    <span class="pl-ent">"data"</span>: {
+      <span class="pl-ent">"country"</span>: {
+        <span class="pl-ent">"name"</span>: <span class="pl-s"><span class="pl-pds">"</span>France<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"capital"</span>: <span class="pl-s"><span class="pl-pds">"</span>Paris<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"currency"</span>: <span class="pl-s"><span class="pl-pds">"</span>EUR<span class="pl-pds">"</span></span>,
+        <span class="pl-ent">"languages"</span>: [{ <span class="pl-ent">"name"</span>: <span class="pl-s"><span class="pl-pds">"</span>French<span class="pl-pds">"</span></span> }]
+      }
+    }
+  },
+  <span class="pl-ent">"link"</span>: <span class="pl-s"><span class="pl-pds">"</span>http://localhost:5001/query/8a056e1a-3897-4440-a391-a3d291c1de8c<span class="pl-pds">"</span></span>
+}</pre></div>
+<hr>
+<div class="markdown-heading"><h3 class="heading-element">🔹 Retrieve Stored Queries</h3><a id="user-content--retrieve-stored-queries" class="anchor" aria-label="Permalink: 🔹 Retrieve Stored Queries" href="#-retrieve-stored-queries"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p><strong>Endpoint:</strong> <code>GET /queries</code></p>
+<p><strong>Description:</strong> Returns a list of stored query IDs.</p>
+<div class="markdown-heading"><h4 class="heading-element"><strong>Response:</strong></h4><a id="user-content-response-1" class="anchor" aria-label="Permalink: Response:" href="#response-1"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div class="highlight highlight-source-json notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="[
+  { &quot;queryID&quot;: &quot;http://localhost:5001/query/8a056e1a-3897-4440-a391-a3d291c1de8c&quot; },
+  { &quot;queryID&quot;: &quot;http://localhost:5001/query/3faa5b9b-8f81-401b-b5dd-8955fbeda615&quot; }
+]"><pre>[
+  { <span class="pl-ent">"queryID"</span>: <span class="pl-s"><span class="pl-pds">"</span>http://localhost:5001/query/8a056e1a-3897-4440-a391-a3d291c1de8c<span class="pl-pds">"</span></span> },
+  { <span class="pl-ent">"queryID"</span>: <span class="pl-s"><span class="pl-pds">"</span>http://localhost:5001/query/3faa5b9b-8f81-401b-b5dd-8955fbeda615<span class="pl-pds">"</span></span> }
+]</pre></div>
+<hr>
+<div class="markdown-heading"><h3 class="heading-element">🔹 Execute SPARQL Query</h3><a id="user-content--execute-sparql-query" class="anchor" aria-label="Permalink: 🔹 Execute SPARQL Query" href="#-execute-sparql-query"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p><strong>Endpoint:</strong> <code>POST /sparql</code></p>
+<p><strong>Description:</strong> Executes a SPARQL query on stored RDF data.</p>
+<div class="markdown-heading"><h4 class="heading-element"><strong>Request Body:</strong></h4><a id="user-content-request-body-1" class="anchor" aria-label="Permalink: Request Body:" href="#request-body-1"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div class="highlight highlight-source-json notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="{
+  &quot;query&quot;: &quot;PREFIX ex: &lt;http://example.org/queries#&gt; SELECT ?userQuery WHERE { ?query ex:userQuery ?userQuery . }&quot;
+}"><pre>{
+  <span class="pl-ent">"query"</span>: <span class="pl-s"><span class="pl-pds">"</span>PREFIX ex: &lt;http://example.org/queries#&gt; SELECT ?userQuery WHERE { ?query ex:userQuery ?userQuery . }<span class="pl-pds">"</span></span>
+}</pre></div>
+<div class="markdown-heading"><h4 class="heading-element"><strong>Response:</strong></h4><a id="user-content-response-2" class="anchor" aria-label="Permalink: Response:" href="#response-2"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div class="highlight highlight-source-json notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="[
+  { &quot;userQuery&quot;: &quot;What is the capital of France?&quot; },
+  { &quot;userQuery&quot;: &quot;Capital of Germany?&quot; }
+]"><pre>[
+  { <span class="pl-ent">"userQuery"</span>: <span class="pl-s"><span class="pl-pds">"</span>What is the capital of France?<span class="pl-pds">"</span></span> },
+  { <span class="pl-ent">"userQuery"</span>: <span class="pl-s"><span class="pl-pds">"</span>Capital of Germany?<span class="pl-pds">"</span></span> }
+]</pre></div>
+<hr>
+<div class="markdown-heading"><h2 class="heading-element">🛠️ Setup Instructions</h2><a id="user-content-️-setup-instructions" class="anchor" aria-label="Permalink: 🛠️ Setup Instructions" href="#️-setup-instructions"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div class="markdown-heading"><h3 class="heading-element">1️⃣ Clone the Repository</h3><a id="user-content-1️⃣-clone-the-repository" class="anchor" aria-label="Permalink: 1️⃣ Clone the Repository" href="#1️⃣-clone-the-repository"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="git clone https://github.com/YOUR_USERNAME/YOUR_REPO.wiki.git
+cd YOUR_REPO.wiki"><pre>git clone https://github.com/YOUR_USERNAME/YOUR_REPO.wiki.git
+<span class="pl-c1">cd</span> YOUR_REPO.wiki</pre></div>
+<div class="markdown-heading"><h3 class="heading-element">2️⃣ Run the Backend with Docker</h3><a id="user-content-2️⃣-run-the-backend-with-docker" class="anchor" aria-label="Permalink: 2️⃣ Run the Backend with Docker" href="#2️⃣-run-the-backend-with-docker"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="docker-compose up --build"><pre>docker-compose up --build</pre></div>
+<div class="markdown-heading"><h3 class="heading-element">3️⃣ Run Tests</h3><a id="user-content-3️⃣-run-tests" class="anchor" aria-label="Permalink: 3️⃣ Run Tests" href="#3️⃣-run-tests"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="docker-compose exec backend pytest tests.py"><pre>docker-compose <span class="pl-c1">exec</span> backend pytest tests.py</pre></div>
+<hr>
+<div class="markdown-heading"><h2 class="heading-element">📌 Supported GraphQL APIs</h2><a id="user-content--supported-graphql-apis" class="anchor" aria-label="Permalink: 📌 Supported GraphQL APIs" href="#-supported-graphql-apis"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<table role="table">
+<thead>
+<tr>
+<th>API Name</th>
+<th>Base URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Countries</td>
+<td><code>https://countries.trevorblades.com/</code></td>
+</tr>
+<tr>
+<td>SpaceX</td>
+<td><code>https://api.spacex.land/graphql/</code></td>
+</tr>
+</tbody>
+</table>
+      </section>
+
+      <section>
+        <h2 id="testing-evaluation">6. Testing & Evaluation</h2>
+        <p>
+            GAIT has undergone extensive unit and integration testing using
+            pytest. The results indicate high accuracy in query conversion and
+            reliable API interactions.
+        </p>
+        <p>
+          The backend has been tested rigorously using automated unit tests and integration tests.
+        </p>
+        <ul>
+          <li><strong>Unit Testing:</strong> Pytest-based tests cover query conversion, API interactions, and RDF storage validation.</li>
+          <li><strong>Integration Testing:</strong> Simulated requests are run against public GraphQL APIs to verify response consistency.</li>
+          <li><strong>Performance Testing:</strong> Query execution time is measured under different workloads to ensure scalability.</li>
+          <li><strong>SPARQL Query Validation:</strong> Tests ensure that stored RDF data is retrievable with accurate SPARQL queries.</li>
+        </ul>
+        <div class="markdown-heading"><h4 class="heading-element">✅ <strong>GraphQL Query Execution</strong>
+        </h4><a id="user-content--graphql-query-execution" class="anchor" aria-label="Permalink: ✅ GraphQL Query Execution" href="#-graphql-query-execution"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+        <p>This test submits a natural language query and verifies that the correct GraphQL response is returned.</p>
+        <p><strong>Expected Behavior:</strong> The API should return a 200 OK response with both query and response fields.</p>
+        <p><strong>Example Test Case:</strong></p>
+        <div class="highlight highlight-source-python notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content=" def test_graphql_query(client):
+             response = client.post('/query', json={'user_input': 'What is the capital of France?'})
+             assert response.status_code == 200
+             data = response.json()
+             assert 'query' in data
+             assert 'response' in data"><pre> <span class="pl-k">def</span> <span class="pl-en">test_graphql_query</span>(<span class="pl-s1">client</span>):
+             <span class="pl-s1">response</span> <span class="pl-c1">=</span> <span class="pl-s1">client</span>.<span class="pl-c1">post</span>(<span class="pl-s">'/query'</span>, <span class="pl-s1">json</span><span class="pl-c1">=</span>{<span class="pl-s">'user_input'</span>: <span class="pl-s">'What is the capital of France?'</span>})
+             <span class="pl-k">assert</span> <span class="pl-s1">response</span>.<span class="pl-c1">status_code</span> <span class="pl-c1">==</span> <span class="pl-c1">200</span>
+             <span class="pl-s1">data</span> <span class="pl-c1">=</span> <span class="pl-s1">response</span>.<span class="pl-c1">json</span>()
+             <span class="pl-k">assert</span> <span class="pl-s">'query'</span> <span class="pl-c1">in</span> <span class="pl-s1">data</span>
+             <span class="pl-k">assert</span> <span class="pl-s">'response'</span> <span class="pl-c1">in</span> <span class="pl-s1">data</span></pre></div>
+        <div class="markdown-heading"><h4 class="heading-element">✅ <strong>RDF Retrieval</strong>
+        </h4><a id="user-content--rdf-retrieval" class="anchor" aria-label="Permalink: ✅ RDF Retrieval" href="#-rdf-retrieval"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+        <p>This test retrieves RDF data in Turtle format and verifies its correctness.</p>
+        <p><strong>Expected Behavior:</strong> The API should return a 200 OK response with RDF data starting with @prefix.</p>
+        <p><strong>Example Test Case:</strong></p>
+        <div class="highlight highlight-source-python notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="def test_rdf_retrieval(client):
+            response = client.get('/rdf?format=turtle')
+            assert response.status_code == 200
+            assert response.text.startswith(&quot;@prefix&quot;)"><pre><span class="pl-k">def</span> <span class="pl-en">test_rdf_retrieval</span>(<span class="pl-s1">client</span>):
+            <span class="pl-s1">response</span> <span class="pl-c1">=</span> <span class="pl-s1">client</span>.<span class="pl-c1">get</span>(<span class="pl-s">'/rdf?format=turtle'</span>)
+            <span class="pl-k">assert</span> <span class="pl-s1">response</span>.<span class="pl-c1">status_code</span> <span class="pl-c1">==</span> <span class="pl-c1">200</span>
+            <span class="pl-k">assert</span> <span class="pl-s1">response</span>.<span class="pl-c1">text</span>.<span class="pl-c1">startswith</span>(<span class="pl-s">"@prefix"</span>)</pre></div>
+        <div class="markdown-heading"><h4 class="heading-element">✅ <strong>SPARQL Query Execution</strong>
+        </h4><a id="user-content--sparql-query-execution" class="anchor" aria-label="Permalink: ✅ SPARQL Query Execution" href="#-sparql-query-execution"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+        <p>This test executes a sample SPARQL query and verifies the results.</p>
+        <p><strong>Expected Behavior:</strong> The API should return a 200 OK response with query results.</p>
+        <p><strong>Example Test Case:</strong></p>
+        <div class="highlight highlight-source-python notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="def test_sparql_query(client):
+            sparql_query = {
+                &quot;query&quot;: &quot;PREFIX ex: &lt;http://example.org/queries#&gt; SELECT ?userQuery WHERE { ?query ex:userQuery ?userQuery . }&quot;
+            }
+            response = client.post('/sparql', json=sparql_query)
+            assert response.status_code == 200
+            data = response.json()
+            assert len(data) &gt; 0"><pre><span class="pl-k">def</span> <span class="pl-en">test_sparql_query</span>(<span class="pl-s1">client</span>):
+            <span class="pl-s1">sparql_query</span> <span class="pl-c1">=</span> {
+                <span class="pl-s">"query"</span>: <span class="pl-s">"PREFIX ex: &lt;http://example.org/queries#&gt; SELECT ?userQuery WHERE { ?query ex:userQuery ?userQuery . }"</span>
+            }
+            <span class="pl-s1">response</span> <span class="pl-c1">=</span> <span class="pl-s1">client</span>.<span class="pl-c1">post</span>(<span class="pl-s">'/sparql'</span>, <span class="pl-s1">json</span><span class="pl-c1">=</span><span class="pl-s1">sparql_query</span>)
+            <span class="pl-k">assert</span> <span class="pl-s1">response</span>.<span class="pl-c1">status_code</span> <span class="pl-c1">==</span> <span class="pl-c1">200</span>
+            <span class="pl-s1">data</span> <span class="pl-c1">=</span> <span class="pl-s1">response</span>.<span class="pl-c1">json</span>()
+            <span class="pl-k">assert</span> <span class="pl-en">len</span>(<span class="pl-s1">data</span>) <span class="pl-c1">&gt;</span> <span class="pl-c1">0</span></pre></div>
+      </section>
+
+      <section>
+        <h2 id="challenges-solutions">7. Challenges & Solutions</h2>
+        <p>
+          Key challenges include handling ambiguous user queries and ensuring
+          multilingual support. Solutions involve NLP enhancements and dynamic
+          query introspection.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="future-work-conclusion">8. Future Work & Conclusion</h2>
+        <p>
+          Future enhancements include expanding API support, optimizing NLP
+          models, and improving query validation mechanisms.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="references">9. References</h2>
+        <p>
+          <strong>Backend Development References:</strong>
+        </p>
+        <ul>
+          <li>Docker Documentation - <a href="https://docs.docker.com/">https://docs.docker.com/</a></li>
+          <li>FastAPI Documentation - <a href="https://fastapi.tiangolo.com/">https://fastapi.tiangolo.com/</a></li>
+          <li>GraphQL Documentation - <a href="https://graphql.org/learn/">https://graphql.org/learn/</a></li>
+          <li>SPARQL Query Language - <a href="https://www.w3.org/TR/sparql11-query/">https://www.w3.org/TR/sparql11-query/</a></li>
+          <li>React Documentation - <a href="https://reactjs.org/docs/getting-started.html">https://reactjs.org/docs/getting-started.html</a></li>
+          <li>RDFlib (RDF for Python) - <a href="https://rdflib.readthedocs.io/en/stable/">https://rdflib.readthedocs.io/en/stable/</a></li>
+          <li>PyTorch Official Site - <a href="https://pytorch.org/">https://pytorch.org/</a></li>
+          <li>Langdetect (Language Detection) - <a href="https://pypi.org/project/langdetect/">https://pypi.org/project/langdetect/</a></li>
+          <li>i18next (Internationalization in React) - <a href="https://www.i18next.com/">https://www.i18next.com/</a></li>
+          <li>Express.js (Node.js Framework) - <a href="https://expressjs.com/">https://expressjs.com/</a></li>
+          <li>Axios (HTTP Client for JavaScript) - <a href="https://axios-http.com/">https://axios-http.com/</a></li>
+          <li>Jest (Testing for JavaScript) - <a href="https://jestjs.io/">https://jestjs.io/</a></li>
+          <li>Pytest (Python Testing Framework) - <a href="https://pytest.org/">https://pytest.org/</a></li>
+          <li>RDFlib SPARQL Query Examples - <a href="https://rdflib.readthedocs.io/en/stable/intro_to_sparql.html">https://rdflib.readthedocs.io/en/stable/intro_to_sparql.html</a></li>
+          <li>DeepL Translator API - <a href="https://www.deepl.com/docs-api">https://www.deepl.com/docs-api</a></li>
+          <li>Google Cloud Natural Language API - <a href="https://cloud.google.com/natural-language">https://cloud.google.com/natural-language</a></li>
+          <li>OpenAI API (GPT Integration) - <a href="https://platform.openai.com/docs/">https://platform.openai.com/docs/</a></li>
+        </ul>
+      </section>
+    </article>
+  </body>
+</html>
+
