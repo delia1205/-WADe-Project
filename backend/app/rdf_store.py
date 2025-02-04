@@ -125,4 +125,21 @@ class RDFStore:
         
         return {"user_id": user_id, "query_history": query_history}
 
+    def delete_query_by_id(self, query_id):
+        """Delete a specific query entry by queryID."""
+        result = self.collection.delete_one({"query_uri": query_id})
+        
+        if result.deleted_count > 0:
+            return {"message": f"Query with ID {query_id} deleted successfully."}
+        else:
+            return {"error": f"No query found with ID {query_id}."}
+
+    def delete_all_queries_by_user(self, user_id):
+        """Delete all query entries for a specific user_id."""
+        result = self.collection.delete_many({"user_id": user_id})
+        
+        if result.deleted_count > 0:
+            return {"message": f"All queries for user ID {user_id} deleted successfully."}
+        else:
+            return {"error": f"No queries found for user ID {user_id}."}
 

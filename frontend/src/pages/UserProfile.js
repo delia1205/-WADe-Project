@@ -42,8 +42,6 @@ export default function UserProfile() {
     }
   }, [userData?._id, selectedPhoto]);
 
-  const clearQueryHistory = () => setQueryHistory([]);
-
   const [languagePreference, setLanguagePreference] = useState(
     localStorage.getItem("langPref")
   );
@@ -244,6 +242,42 @@ export default function UserProfile() {
     document.body.removeChild(link);
   };
 
+  const deleteQuery = async (queryID) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/delete-query/${queryID}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to delete query");
+      }
+      setQueryHistory(
+        queryHistory.filter((query) => query.queryID !== queryID)
+      );
+    } catch (error) {
+      console.error("Error deleting query:", error);
+    }
+  };
+
+  const clearQueryHistory = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/delete-all-queries/${userData._id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to clear query history");
+      }
+      setQueryHistory([]);
+    } catch (error) {
+      console.error("Error clearing query history:", error);
+    }
+  };
+
   if (!userData) {
     return <div>Loading...</div>;
   }
@@ -305,11 +339,7 @@ export default function UserProfile() {
                         </button>
                         <button
                           className="item-button"
-                          onClick={() =>
-                            setQueryHistory(
-                              queryHistory.filter((q) => q.id !== query.id)
-                            )
-                          }
+                          onClick={() => deleteQuery(query.queryID)}
                         >
                           Delete
                         </button>

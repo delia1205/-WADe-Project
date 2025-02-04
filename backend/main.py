@@ -39,7 +39,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Allow all domains (use specific domains in production)
     allow_credentials=True,
-    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_methods=["GET", "POST", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
 
@@ -231,6 +231,27 @@ def get_query_history(user_id: str):
         raise HTTPException(status_code=404, detail="No query history found for the given user.")
     
     return query_history
+
+@app.delete("/delete-query/{query_id}")
+def delete_query(query_id: str):
+    """Delete a specific query entry by queryID."""
+    result = rdf_store.delete_query_by_id(query_id)
+    
+    if "error" in result:
+        raise HTTPException(status_code=404, detail=result["error"])
+    
+    return result
+
+
+@app.delete("/delete-all-queries/{user_id}")
+def delete_all_queries(user_id: str):
+    """Delete all query entries for a specific user_id."""
+    result = rdf_store.delete_all_queries_by_user(user_id)
+    
+    if "error" in result:
+        raise HTTPException(status_code=404, detail=result["error"])
+    
+    return result
 
 
 # Start FastAPI Server
